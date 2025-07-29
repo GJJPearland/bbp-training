@@ -1,9 +1,12 @@
 // Service Worker for Bloodborne Pathogen Training
 const CACHE_NAME = 'bbp-training-cache-v1';
+// Determine base path ('' for local, '/bbp-training' for GitHub Pages)
+const BASE_PATH = self.location.pathname.includes('/bbp-training/') ? '/bbp-training' : '';
+
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/gjj-pearland-logo.png'
+  BASE_PATH + '/',
+  BASE_PATH + '/index.html',
+  BASE_PATH + '/gjj-pearland-logo.png'
 ];
 
 // Install event - cache resources
