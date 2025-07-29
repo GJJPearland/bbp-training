@@ -1203,7 +1203,8 @@
     <script>
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
-        const totalSlides = slides.length;
+        const visibleSlides = Array.from(slides).filter(slide => slide.id !== 'admin-panel');
+        const totalSlides = visibleSlides.length;
         
         // Quiz variables
         let currentQuestionIndex = 0;
@@ -1219,23 +1220,38 @@
         document.getElementById('total-slides').textContent = totalSlides;
 
         function showSlide(n) {
-            if (n === totalSlides - 2 && !quizPassed) {
+            // Check if trying to access certificate without passing quiz
+            if (n === slides.length - 2 && !quizPassed) {
                 alert('You must complete and pass the quiz before accessing the certificate.');
                 return;
             }
             
-            slides.forEach(slide => slide.classList.remove('active'));
+            // Hide all slides except admin panel
+            slides.forEach(slide => {
+                if (slide.id !== 'admin-panel') {
+                    slide.classList.remove('active');
+                }
+            });
+            
+            // Show the target slide
             currentSlide = n;
             slides[currentSlide].classList.add('active');
             
+            // Update counter (don't count admin panel)
+            const visibleSlides = Array.from(slides).filter(slide => slide.id !== 'admin-panel');
             document.getElementById('current-slide').textContent = currentSlide + 1;
+            document.getElementById('total-slides').textContent = visibleSlides.length;
+            
+            // Update navigation buttons
             document.getElementById('prevBtn').disabled = currentSlide === 0;
-            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+            document.getElementById('nextBtn').disabled = currentSlide === visibleSlides.length - 1;
         }
 
         function changeSlide(direction) {
+            const visibleSlides = Array.from(slides).filter(slide => slide.id !== 'admin-panel');
             let newSlide = currentSlide + direction;
-            if (newSlide >= 0 && newSlide < totalSlides) {
+            
+            if (newSlide >= 0 && newSlide < visibleSlides.length) {
                 showSlide(newSlide);
             }
         }
@@ -1312,7 +1328,7 @@
                 `;
             }
             
-            showSlide(slides.length - 3);
+            showSlide(visibleSlides.length - 3);
         }
 
         function retakeQuiz() {
@@ -1361,7 +1377,7 @@
                 console.log('Local storage not available');
             }
             
-            showSlide(slides.length - 2);
+            showSlide(visibleSlides.length - 2);
             setTimeout(() => {
                 document.getElementById('employee-name').focus();
             }, 100);
