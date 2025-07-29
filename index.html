@@ -4,6 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bloodborne Pathogen Training - BJJ School</title>
+    <!-- PDF Generation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <!-- Service Worker Registration for Offline Support -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('ServiceWorker registration failed: ', error);
+                    });
+            });
+        }
+    </script>
     <style>
         * {
             margin: 0;
@@ -16,6 +34,58 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #333;
             overflow: hidden;
+            min-height: 100vh;
+        }
+        
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+            }
+            
+            .slide {
+                width: 95%;
+                padding: 20px;
+                margin: 2% auto;
+            }
+            
+            .slide h1 {
+                font-size: 1.8em;
+            }
+            
+            .slide h2 {
+                font-size: 1.5em;
+            }
+            
+            .navigation {
+                bottom: 10px;
+            }
+            
+            .nav-btn {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .slide {
+                width: 98%;
+                padding: 15px;
+                margin: 1% auto;
+            }
+            
+            .slide h1 {
+                font-size: 1.5em;
+            }
+            
+            .navigation {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .certificate-border {
+                padding: 20px;
+            }
         }
 
         .presentation-container {
@@ -119,8 +189,29 @@
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 15px;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Progress Bar Styles */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.3);
             z-index: 1000;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            width: 0%;
+            transition: width 0.3s ease;
         }
 
         .nav-btn {
@@ -346,6 +437,25 @@
             border-radius: 10px;
         }
 
+        .footer {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            z-index: 100;
+        }
+        
+        .version-info {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: right;
+            z-index: 100;
+        }
+
         .certificate-header {
             text-align: center;
             margin-bottom: 30px;
@@ -549,18 +659,30 @@
     </style>
 </head>
 <body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
     <div class="presentation-container">
+        <div class="version-info">
+            <div>Version: 1.1.0</div>
+            <div>Last Updated: July 29, 2025</div>
+        </div>
         <div class="slide-counter">
             <span id="current-slide">1</span> / <span id="total-slides">33</span>
         </div>
 
         <!-- Slide 1: Title -->
         <div class="slide active title-slide">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <img src="gjj-pearland-logo.png" alt="Gracie Jiu-Jitsu Pearland" style="max-width: 200px; height: auto;">
+            </div>
+            <h1>Bloodborne Pathogen Training</h1>
+            <h2>For BJJ School Staff and Instructors</h2>
+            <p class="subtitle">OSHA Compliance Training</p>
+            <div class="logo">🩸</div>
             <div style="margin-bottom: 30px;">
                 <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgNDAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjMmMzZTUwIi8+Cjx0ZXh0IHg9IjIwMCIgeT0iMzAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5HUkFDSUUgSklVLUpJVFNVPC90ZXh0Pgo8dGV4dCB4PSIyMDAiIHk9IjU1IiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UEVBUkxBTkQ8L3RleHQ+Cjwvc3ZnPgo=" alt="Gracie Jiu-Jitsu Pearland" style="max-width: 300px; height: auto;">
             </div>
-            <div class="logo">🩸</div>
-            <h1>Bloodborne Pathogen Training</h1>
             <div class="subtitle">BJJ School Staff Safety Protocol</div>
             <div class="subtitle">OSHA 29 CFR 1910.1030 Compliance</div>
         </div>
@@ -1120,7 +1242,7 @@
                 <div class="certificate-border">
                     <div class="certificate-header">
                         <div style="margin-bottom: 20px;">
-                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMzAwIDYwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjMmMzZTUwIi8+Cjx0ZXh0IHg9IjE1MCIgeT0iMjUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5HUkFDSUUgSklVLUpJVFNVPC90ZXh0Pgo8dGV4dCB4PSIxNTAiIHk9IjQ1IiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UEVBUkxBTkQ8L3RleHQ+Cjwvc3ZnPgo=" alt="Gracie Jiu-Jitsu Pearland" style="max-width: 250px; height: auto;">
+                            <img src="gjj-pearland-logo.png" alt="Gracie Jiu-Jitsu Pearland" style="max-width: 250px; height: auto;">
                         </div>
                         <h1>CERTIFICATE OF COMPLETION</h1>
                         <div class="certificate-subtitle">Bloodborne Pathogen Training</div>
@@ -1129,7 +1251,7 @@
                     <div class="certificate-body">
                         <p class="certificate-text">This is to certify that</p>
                         <div class="certificate-name">
-                            <input type="text" id="employee-name" placeholder="Enter Your Full Name" class="name-input" autocomplete="name" autocorrect="off" autocapitalize="words" style="font-family: inherit !important; white-space: pre !important;">
+                            <input type="text" id="employee-name" placeholder="Enter Your Full Name" class="name-input" autocomplete="name" autocorrect="off" autocapitalize="words">
                         </div>
                         <p class="certificate-text">has successfully completed the</p>
                         <div class="certificate-course">OSHA Bloodborne Pathogen Training</div>
@@ -1206,6 +1328,70 @@
         const visibleSlides = Array.from(slides).filter(slide => slide.id !== 'admin-panel');
         const totalSlides = visibleSlides.length;
         
+        // Initialize the first slide
+        // Function to resume progress
+        function resumeProgress() {
+            const savedSlide = localStorage.getItem('bbp_current_slide');
+            if (savedSlide !== null) {
+                const slideIndex = parseInt(savedSlide);
+                if (!isNaN(slideIndex) && slideIndex >= 0 && slideIndex < visibleSlides.length) {
+                    return slideIndex;
+                }
+            }
+            return 0;
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize slides
+            slides = Array.from(document.querySelectorAll('.slide'));
+            visibleSlides = slides.filter(slide => slide.id !== 'admin-panel');
+            
+            // Check for saved progress
+            const resumeSlideIndex = resumeProgress();
+            if (resumeSlideIndex > 0) {
+                // Ask if user wants to resume
+                const resume = confirm('Would you like to resume from where you left off?');
+                if (resume) {
+                    showSlide(resumeSlideIndex);
+                } else {
+                    showSlide(0);
+                }
+            } else {
+                showSlide(0);
+            }
+            
+            // Add keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                // Skip keyboard navigation when inside form fields
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                    return;
+                }
+                
+                // Left arrow or Page Up: Previous slide
+                if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                    if (currentSlide > 0) {
+                        changeSlide(-1);
+                    }
+                }
+                // Right arrow or Page Down: Next slide
+                else if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+                    if (currentSlide < visibleSlides.length - 1) {
+                        changeSlide(1);
+                    }
+                }
+                // Home key: First slide
+                else if (e.key === 'Home') {
+                    showSlide(0);
+                }
+                // End key: Last slide (if quiz is passed)
+                else if (e.key === 'End') {
+                    if (quizPassed) {
+                        showSlide(visibleSlides.length - 1);
+                    }
+                }
+            });
+        });
+        
         // Quiz variables
         let currentQuestionIndex = 0;
         let quizStarted = false;
@@ -1221,7 +1407,7 @@
 
         function showSlide(n) {
             // Check if trying to access certificate without passing quiz
-            if (n === slides.length - 2 && !quizPassed) {
+            if (n === visibleSlides.length - 1 && !quizPassed) {
                 alert('You must complete and pass the quiz before accessing the certificate.');
                 return;
             }
@@ -1235,16 +1421,22 @@
             
             // Show the target slide
             currentSlide = n;
-            slides[currentSlide].classList.add('active');
+            visibleSlides[currentSlide].classList.add('active');
             
             // Update counter (don't count admin panel)
-            const visibleSlides = Array.from(slides).filter(slide => slide.id !== 'admin-panel');
             document.getElementById('current-slide').textContent = currentSlide + 1;
             document.getElementById('total-slides').textContent = visibleSlides.length;
             
             // Update navigation buttons
             document.getElementById('prevBtn').disabled = currentSlide === 0;
             document.getElementById('nextBtn').disabled = currentSlide === visibleSlides.length - 1;
+            
+            // Update progress bar
+            const progressPercentage = ((currentSlide + 1) / visibleSlides.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progressPercentage}%`;
+            
+            // Save progress to localStorage
+            localStorage.setItem('bbp_current_slide', currentSlide);
         }
 
         function changeSlide(direction) {
@@ -1416,7 +1608,46 @@
                 return;
             }
             
-            alert('To save as PDF:\n\n1. Click "Print Certificate" or press Ctrl+P\n2. In the print dialog, select "Save as PDF" or "Microsoft Print to PDF"\n3. Choose your save location\n4. Click Save\n\nThe certificate will be saved as a professional PDF document.');
+            // Show loading message
+            const saveBtn = document.querySelector('button[onclick="savePDF()"]');
+            const originalText = saveBtn.textContent;
+            saveBtn.textContent = 'Generating PDF...';
+            saveBtn.disabled = true;
+            
+            // Get the certificate element
+            const certificateElement = document.querySelector('.certificate');
+            
+            // Use html2canvas to capture the certificate
+            html2canvas(certificateElement, {
+                scale: 2, // Higher resolution
+                useCORS: true, // Allow loading cross-origin images
+                allowTaint: true,
+                backgroundColor: '#ffffff'
+            }).then(canvas => {
+                // Initialize jsPDF
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('landscape', 'mm', 'letter');
+                
+                // Add the canvas image to the PDF
+                const imgData = canvas.toDataURL('image/png');
+                const imgWidth = 279.4; // Letter size width in landscape (11 inches)
+                const imgHeight = 215.9; // Letter size height in landscape (8.5 inches)
+                
+                pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+                
+                // Save the PDF
+                const filename = `BBP_Certificate_${name.replace(/\s+/g, '_')}_${completionId}.pdf`;
+                pdf.save(filename);
+                
+                // Reset button
+                saveBtn.textContent = originalText;
+                saveBtn.disabled = false;
+            }).catch(error => {
+                console.error('Error generating PDF:', error);
+                alert('There was an error generating the PDF. Please try again.');
+                saveBtn.textContent = originalText;
+                saveBtn.disabled = false;
+            });
         }
 
         function emailCertificate() {
@@ -1471,6 +1702,7 @@
                 comments: comments, submissionTime: new Date().toISOString()
             };
             
+            // Instructor email address for certificate submissions
             const instructorEmail = 'gjjpearland@gmail.com';
             const subject = `BBP Training Certificate - ${studentName} (ID: ${completionId})`;
             const body = `Bloodborne Pathogen Training Certificate Submission
@@ -1550,4 +1782,27 @@ Timestamp: ${new Date().toLocaleString()}`;
                         <td style="border: 1px solid #dee2e6; padding: 8px;">${completion.id}</td>
                         <td style="border: 1px solid #dee2e6; padding: 8px;">${completion.completionDate}</td>
                         <td style="border: 1px solid #dee2e6; padding: 8px;">${completion.score}%</td>
-                        <td style="border: 1px solid #dee2e6; padding
+                        <td style="border: 1px solid #dee2e6; padding: 8px;">${completion.nextTrainingDate}</td>
+                    </tr>`;
+                });
+                html += '</table>';
+            }
+            
+            if (submissions.length > 0) {
+                html += '<h4>Submitted Certificates:</h4>';
+                html += '<table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">';
+                html += '<tr style="background: #e9ecef;"><th style="border: 1px solid #dee2e6; padding: 8px;">Name</th><th style="border: 1px solid #dee2e6; padding: 8px;">Email</th><th style="border: 1px solid #dee2e6; padding: 8px;">Date</th><th style="border: 1px solid #dee2e6; padding: 8px;">ID</th></tr>';
+                
+                submissions.forEach(submission => {
+                    html += `<tr>
+                        <td style="border: 1px solid #dee2e6; padding: 8px;">${submission.name}</td>
+                        <td style="border: 1px solid #dee2e6; padding: 8px;">${submission.email}</td>
+                        <td style="border: 1px solid #dee2e6; padding: 8px;">${submission.date}</td>
+                        <td style="border: 1px solid #dee2e6; padding: 8px;">${submission.id}</td>
+                    </tr>`;
+                });
+                html += '</table>';
+            }
+            
+            display.innerHTML = html;
+        }
