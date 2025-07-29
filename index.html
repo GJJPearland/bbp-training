@@ -1325,10 +1325,11 @@
     </div>
 
     <script>
+        // Declare variables but don't initialize them yet
         let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const visibleSlides = Array.from(slides).filter(slide => slide.id !== 'admin-panel');
-        const totalSlides = visibleSlides.length;
+        let slides;
+        let visibleSlides;
+        let totalSlides;
         
         // Initialize the first slide
         // Function to resume progress
@@ -1345,8 +1346,9 @@
         
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize slides
-            slides = Array.from(document.querySelectorAll('.slide'));
-            visibleSlides = slides.filter(slide => slide.id !== 'admin-panel');
+            slides = document.querySelectorAll('.slide');
+            visibleSlides = Array.from(slides).filter(slide => slide.id !== 'admin-panel');
+            totalSlides = visibleSlides.length;
             
             // Check for saved progress
             const resumeSlideIndex = resumeProgress();
