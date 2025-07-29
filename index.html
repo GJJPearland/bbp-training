@@ -551,7 +551,7 @@
 <body>
     <div class="presentation-container">
         <div class="slide-counter">
-            <span id="current-slide">1</span> / <span id="total-slides">20</span>
+            <span id="current-slide">1</span> / <span id="total-slides">33</span>
         </div>
 
         <!-- Slide 1: Title -->
@@ -1171,6 +1171,8 @@
                 <button class="nav-btn" onclick="submitCertificate()" style="background: #28a745;">Submit Certificate</button>
                 <button class="nav-btn" onclick="cancelEmail()" style="background: #6c757d; margin-left: 10px;">Cancel</button>
             </div>
+        </div>
+
         <!-- Admin Panel Slide (Hidden) -->
         <div class="slide" id="admin-panel" style="display: none;">
             <h1>Admin Panel - Training Completions</h1>
@@ -1185,6 +1187,7 @@
                 <p>Click "View Completions" to see training records.</p>
             </div>
         </div>
+    </div>
 
     <div class="navigation">
         <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
@@ -1199,9 +1202,9 @@
         // Quiz variables
         let currentQuestionIndex = 0;
         let quizStarted = false;
-        let quizPassed = false; // Track if quiz has been passed
+        let quizPassed = false;
         let quizAnswers = {};
-        let completionId = null; // Unique completion ID
+        let completionId = null;
         const correctAnswers = {
             q1: 'b', q2: 'c', q3: 'b', q4: 'b', q5: 'b',
             q6: 'b', q7: 'b', q8: 'b', q9: 'c', q10: 'b'
@@ -1210,46 +1213,35 @@
         document.getElementById('total-slides').textContent = totalSlides;
 
         function showSlide(n) {
-            // Check if trying to access certificate without passing quiz
-            if (n === totalSlides - 1 && !quizPassed) {
+            if (n === totalSlides - 2 && !quizPassed) {
                 alert('You must complete and pass the quiz before accessing the certificate.');
                 return;
             }
             
-            // Hide all slides
             slides.forEach(slide => slide.classList.remove('active'));
-            
-            // Show the target slide
             currentSlide = n;
             slides[currentSlide].classList.add('active');
             
-            // Update counter
             document.getElementById('current-slide').textContent = currentSlide + 1;
-            
-            // Update navigation buttons
             document.getElementById('prevBtn').disabled = currentSlide === 0;
             document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
         }
 
         function changeSlide(direction) {
             let newSlide = currentSlide + direction;
-            
-            // Ensure we stay within bounds
             if (newSlide >= 0 && newSlide < totalSlides) {
                 showSlide(newSlide);
             }
         }
 
-        // Quiz Functions
         function startQuiz() {
             quizStarted = true;
             currentQuestionIndex = 0;
             quizAnswers = {};
-            showSlide(20); // First quiz question
+            showSlide(20);
         }
 
         function nextQuestion() {
-            // Get current question number
             const questionNum = currentQuestionIndex + 1;
             const selectedAnswer = document.querySelector(`input[name="q${questionNum}"]:checked`);
             
@@ -1258,18 +1250,15 @@
                 return;
             }
             
-            // Store the answer
             quizAnswers[`q${questionNum}`] = selectedAnswer.value;
-            
-            // Move to next question
             currentQuestionIndex++;
+            
             if (currentQuestionIndex < 10) {
                 showSlide(20 + currentQuestionIndex);
             }
         }
 
         function submitQuiz() {
-            // Get the last answer
             const selectedAnswer = document.querySelector('input[name="q10"]:checked');
             if (!selectedAnswer) {
                 alert('Please select an answer before submitting.');
@@ -1277,7 +1266,6 @@
             }
             quizAnswers.q10 = selectedAnswer.value;
             
-            // Calculate score
             let correctCount = 0;
             for (let question in correctAnswers) {
                 if (quizAnswers[question] === correctAnswers[question]) {
@@ -1287,8 +1275,6 @@
             
             const scorePercentage = (correctCount / 10) * 100;
             const passed = scorePercentage >= 80;
-            
-            // Show results
             showQuizResults(scorePercentage, correctCount, passed);
         }
 
@@ -1296,7 +1282,7 @@
             const resultsContent = document.getElementById('results-content');
             
             if (passed) {
-                quizPassed = true; // Mark quiz as passed
+                quizPassed = true;
                 resultsContent.innerHTML = `
                     <div class="results-box pass-result">
                         <h2>🎉 Congratulations!</h2>
@@ -1307,7 +1293,7 @@
                     </div>
                 `;
             } else {
-                quizPassed = false; // Ensure quiz is marked as not passed
+                quizPassed = false;
                 resultsContent.innerHTML = `
                     <div class="results-box fail-result">
                         <h2>Review Required</h2>
@@ -1320,110 +1306,67 @@
                 `;
             }
             
-            showSlide(slides.length - 2); // Show results slide
+            showSlide(slides.length - 3);
         }
 
         function retakeQuiz() {
-            // Reset quiz state
             quizAnswers = {};
             currentQuestionIndex = 0;
-            quizPassed = false; // Reset quiz passed status
+            quizPassed = false;
             
-            // Clear all radio buttons
             document.querySelectorAll('input[type="radio"]').forEach(radio => {
                 radio.checked = false;
             });
             
-            // Reset certificate score display
             document.getElementById('final-score').textContent = 'Quiz Not Completed';
-            
-            // Start quiz again
             startQuiz();
         }
 
         function generateCertificate(score) {
-            // Generate unique completion ID
             completionId = 'BBP-' + Date.now().toString(36) + '-' + Math.random().toString(36).substr(2, 5);
             
-            // Set completion date
             const today = new Date();
             const completionDate = today.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
+                year: 'numeric', month: 'long', day: 'numeric'
             });
             
-            // Set next training date (1 year from now)
             const nextYear = new Date(today);
             nextYear.setFullYear(nextYear.getFullYear() + 1);
             const nextTrainingDate = nextYear.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
+                year: 'numeric', month: 'long', day: 'numeric'
             });
             
-            // Populate certificate immediately
             document.getElementById('completion-date').textContent = completionDate;
             document.getElementById('final-score').textContent = `${score}%`;
             document.getElementById('completion-id').textContent = completionId;
             document.getElementById('next-training-date').textContent = nextTrainingDate;
             
-            // Store completion data locally for tracking
             const completionData = {
-                id: completionId,
-                completionDate: completionDate,
-                nextTrainingDate: nextTrainingDate,
-                score: score,
+                id: completionId, completionDate: completionDate,
+                nextTrainingDate: nextTrainingDate, score: score,
                 timestamp: new Date().toISOString()
             };
             
-            // Store in browser's local storage for admin tracking
-            let completions = JSON.parse(localStorage.getItem('bbp-completions') || '[]');
-            completions.push(completionData);
-            localStorage.setItem('bbp-completions', JSON.stringify(completions));
+            try {
+                let completions = JSON.parse(localStorage.getItem('bbp-completions') || '[]');
+                completions.push(completionData);
+                localStorage.setItem('bbp-completions', JSON.stringify(completions));
+            } catch (e) {
+                console.log('Local storage not available');
+            }
             
-            // Show certificate slide
-            showSlide(slides.length - 1);
-            
-            // Focus on name input for user convenience
+            showSlide(slides.length - 2);
             setTimeout(() => {
                 document.getElementById('employee-name').focus();
             }, 100);
         }
 
-        // Initialize certificate with current date info when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            showSlide(0);
-            
-            // Pre-populate certificate dates even before quiz is taken
-            const today = new Date();
-            const completionDate = today.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-            
-            const nextYear = new Date(today);
-            nextYear.setFullYear(nextYear.getFullYear() + 1);
-            const nextTrainingDate = nextYear.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-            
-            document.getElementById('completion-date').textContent = completionDate;
-            document.getElementById('next-training-date').textContent = nextTrainingDate;
-            document.getElementById('final-score').textContent = 'Pending Quiz';
-        });
-
         function printCertificate() {
-            // Check if quiz has been passed
             if (!quizPassed) {
                 alert('You must complete and pass the quiz before printing the certificate.');
                 return;
             }
             
-            // Ensure name is filled
             const nameInput = document.getElementById('employee-name');
             const name = nameInput.value.trim();
             
@@ -1433,22 +1376,15 @@
                 return;
             }
             
-            // Test if spaces are working
-            console.log('Name entered:', `"${name}"`);
-            console.log('Name length:', name.length);
-            console.log('Contains space:', name.includes(' '));
-            
             window.print();
         }
 
         function savePDF() {
-            // Check if quiz has been passed
             if (!quizPassed) {
                 alert('You must complete and pass the quiz before saving the certificate.');
                 return;
             }
             
-            // Ensure name is filled
             const nameInput = document.getElementById('employee-name');
             const name = nameInput.value.trim();
             
@@ -1458,15 +1394,98 @@
                 return;
             }
             
-            // Instructions for saving as PDF
             alert('To save as PDF:\n\n1. Click "Print Certificate" or press Ctrl+P\n2. In the print dialog, select "Save as PDF" or "Microsoft Print to PDF"\n3. Choose your save location\n4. Click Save\n\nThe certificate will be saved as a professional PDF document.');
         }
 
-        // Admin Panel Functions
+        function emailCertificate() {
+            if (!quizPassed) {
+                alert('You must complete and pass the quiz before emailing the certificate.');
+                return;
+            }
+            
+            const nameInput = document.getElementById('employee-name');
+            const name = nameInput.value.trim();
+            
+            if (!name) {
+                alert('Please enter your full name before emailing the certificate.');
+                nameInput.focus();
+                return;
+            }
+            
+            document.getElementById('email-form').style.display = 'block';
+            document.getElementById('student-email').focus();
+        }
+
+        function cancelEmail() {
+            document.getElementById('email-form').style.display = 'none';
+            document.getElementById('student-email').value = '';
+            document.getElementById('student-comments').value = '';
+        }
+
+        function submitCertificate() {
+            const studentEmail = document.getElementById('student-email').value.trim();
+            const studentName = document.getElementById('employee-name').value.trim();
+            const comments = document.getElementById('student-comments').value.trim();
+            
+            if (!studentEmail) {
+                alert('Please enter your email address.');
+                document.getElementById('student-email').focus();
+                return;
+            }
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(studentEmail)) {
+                alert('Please enter a valid email address.');
+                document.getElementById('student-email').focus();
+                return;
+            }
+            
+            const submissionData = {
+                studentName: studentName, studentEmail: studentEmail,
+                completionId: completionId,
+                completionDate: document.getElementById('completion-date').textContent,
+                score: document.getElementById('final-score').textContent,
+                nextTrainingDate: document.getElementById('next-training-date').textContent,
+                comments: comments, submissionTime: new Date().toISOString()
+            };
+            
+            const instructorEmail = 'training@yourbjjschool.com';
+            const subject = `BBP Training Certificate - ${studentName} (ID: ${completionId})`;
+            const body = `Bloodborne Pathogen Training Certificate Submission
+
+Student Information:
+- Name: ${studentName}
+- Email: ${studentEmail}
+- Completion ID: ${completionId}
+- Completion Date: ${document.getElementById('completion-date').textContent}
+- Quiz Score: ${document.getElementById('final-score').textContent}
+- Next Training Due: ${document.getElementById('next-training-date').textContent}
+
+${comments ? `Comments: ${comments}` : ''}
+
+This email confirms successful completion of OSHA Bloodborne Pathogen Training.
+
+Submitted via BJJ School Training System
+Timestamp: ${new Date().toLocaleString()}`;
+            
+            try {
+                let submissions = JSON.parse(localStorage.getItem('bbp-submissions') || '[]');
+                submissions.push(submissionData);
+                localStorage.setItem('bbp-submissions', JSON.stringify(submissions));
+            } catch (e) {
+                console.log('Local storage not available');
+            }
+            
+            const mailtoLink = `mailto:${instructorEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoLink;
+            
+            alert(`Certificate submission prepared!\n\nAn email has been opened with your completion details.\nCompletion ID: ${completionId}\n\nPlease send the email to complete your submission.`);
+            cancelEmail();
+        }
+
         function showAdminPanel() {
             document.getElementById('admin-panel').style.display = 'block';
             document.getElementById('admin-panel').classList.add('active');
-            // Hide navigation for admin panel
             document.querySelector('.navigation').style.display = 'none';
             document.querySelector('.slide-counter').style.display = 'none';
         }
@@ -1474,16 +1493,22 @@
         function hideAdminPanel() {
             document.getElementById('admin-panel').style.display = 'none';
             document.getElementById('admin-panel').classList.remove('active');
-            // Show navigation again
             document.querySelector('.navigation').style.display = 'flex';
             document.querySelector('.slide-counter').style.display = 'block';
-            // Return to first slide
             showSlide(0);
         }
 
         function showCompletions() {
-            const completions = JSON.parse(localStorage.getItem('bbp-completions') || '[]');
-            const submissions = JSON.parse(localStorage.getItem('bbp-submissions') || '[]');
+            let completions = [];
+            let submissions = [];
+            
+            try {
+                completions = JSON.parse(localStorage.getItem('bbp-completions') || '[]');
+                submissions = JSON.parse(localStorage.getItem('bbp-submissions') || '[]');
+            } catch (e) {
+                console.log('Local storage not available');
+            }
+            
             const display = document.getElementById('completions-display');
             
             if (completions.length === 0 && submissions.length === 0) {
@@ -1503,229 +1528,4 @@
                         <td style="border: 1px solid #dee2e6; padding: 8px;">${completion.id}</td>
                         <td style="border: 1px solid #dee2e6; padding: 8px;">${completion.completionDate}</td>
                         <td style="border: 1px solid #dee2e6; padding: 8px;">${completion.score}%</td>
-                        <td style="border: 1px solid #dee2e6; padding: 8px;">${completion.nextTrainingDate}</td>
-                    </tr>`;
-                });
-                html += '</table>';
-            }
-            
-            if (submissions.length > 0) {
-                html += '<h4>Email Submissions:</h4>';
-                html += '<table style="width: 100%; border-collapse: collapse;">';
-                html += '<tr style="background: #e9ecef;"><th style="border: 1px solid #dee2e6; padding: 8px;">Name</th><th style="border: 1px solid #dee2e6; padding: 8px;">Email</th><th style="border: 1px solid #dee2e6; padding: 8px;">ID</th><th style="border: 1px solid #dee2e6; padding: 8px;">Score</th><th style="border: 1px solid #dee2e6; padding: 8px;">Submitted</th></tr>';
-                
-                submissions.forEach(submission => {
-                    const submitDate = new Date(submission.submissionTime).toLocaleDateString();
-                    html += `<tr>
-                        <td style="border: 1px solid #dee2e6; padding: 8px;">${submission.studentName}</td>
-                        <td style="border: 1px solid #dee2e6; padding: 8px;">${submission.studentEmail}</td>
-                        <td style="border: 1px solid #dee2e6; padding: 8px;">${submission.completionId}</td>
-                        <td style="border: 1px solid #dee2e6; padding: 8px;">${submission.score}</td>
-                        <td style="border: 1px solid #dee2e6; padding: 8px;">${submitDate}</td>
-                    </tr>`;
-                });
-                html += '</table>';
-            }
-            
-            display.innerHTML = html;
-        }
-
-        function exportCompletions() {
-            const completions = JSON.parse(localStorage.getItem('bbp-completions') || '[]');
-            const submissions = JSON.parse(localStorage.getItem('bbp-submissions') || '[]');
-            
-            if (completions.length === 0 && submissions.length === 0) {
-                alert('No data to export.');
-                return;
-            }
-            
-            let csvContent = 'Type,Student Name,Email,Completion ID,Completion Date,Score,Next Training Due,Submission Time,Comments\n';
-            
-            completions.forEach(completion => {
-                csvContent += `Completion,,${completion.id},${completion.completionDate},${completion.score}%,${completion.nextTrainingDate},${completion.timestamp},\n`;
-            });
-            
-            submissions.forEach(submission => {
-                csvContent += `Submission,${submission.studentName},${submission.studentEmail},${submission.completionId},${submission.completionDate},${submission.score},${submission.nextTrainingDate},${submission.submissionTime},"${submission.comments || ''}"\n`;
-            });
-            
-            // Create and download CSV file
-            const blob = new Blob([csvContent], { type: 'text/csv' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `bbp-training-completions-${new Date().toISOString().split('T')[0]}.csv`;
-            a.click();
-            window.URL.revokeObjectURL(url);
-            
-            alert('Training completion data exported successfully!');
-        }
-
-        function clearCompletions() {
-            if (confirm('Are you sure you want to clear all training completion data? This cannot be undone.')) {
-                localStorage.removeItem('bbp-completions');
-                localStorage.removeItem('bbp-submissions');
-                document.getElementById('completions-display').innerHTML = '<p>All data cleared.</p>';
-                alert('All training completion data has been cleared.');
-            }
-        }
-
-        // Secret admin access (press Ctrl+Shift+A on any slide)
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && e.shiftKey && e.key === 'A') {
-                e.preventDefault();
-                const password = prompt('Enter admin password:');
-                if (password === 'bbp-admin-2025') { // Change this password
-                    showAdminPanel();
-                } else if (password !== null) {
-                    alert('Invalid password.');
-                }
-            }
-        });
-
-        // Add event listener to test name input
-        document.addEventListener('DOMContentLoaded', function() {
-            showSlide(0);
-            
-            // Pre-populate certificate dates
-            const today = new Date();
-            const completionDate = today.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-            
-            const nextYear = new Date(today);
-            nextYear.setFullYear(nextYear.getFullYear() + 1);
-            const nextTrainingDate = nextYear.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-            
-            document.getElementById('completion-date').textContent = completionDate;
-            document.getElementById('next-training-date').textContent = nextTrainingDate;
-            document.getElementById('final-score').textContent = 'Quiz Not Completed';
-            
-            // Fix name input after page loads
-            setTimeout(() => {
-                const nameInput = document.getElementById('employee-name');
-                if (nameInput) {
-                    // Remove any restrictions that might be preventing spaces
-                    nameInput.removeAttribute('pattern');
-                    nameInput.removeAttribute('maxlength');
-                    nameInput.style.fontFamily = 'inherit';
-                    nameInput.style.whiteSpace = 'pre';
-                    
-                    // Override any CSS that might be affecting spaces
-                    nameInput.addEventListener('keydown', function(e) {
-                        console.log('Key pressed:', e.key, 'Code:', e.code);
-                        
-                        // If space key is pressed, manually insert space
-                        if (e.code === 'Space') {
-                            e.preventDefault();
-                            const cursorPos = this.selectionStart;
-                            const textBefore = this.value.substring(0, cursorPos);
-                            const textAfter = this.value.substring(this.selectionEnd);
-                            this.value = textBefore + ' ' + textAfter;
-                            this.setSelectionRange(cursorPos + 1, cursorPos + 1);
-                            
-                            // Trigger input event
-                            const event = new Event('input', { bubbles: true });
-                            this.dispatchEvent(event);
-                        }
-                    });
-                    
-                    nameInput.addEventListener('input', function(e) {
-                        console.log('Input event:', e.target.value);
-                    });
-                }
-            }, 500);
-        });
-
-        // Add click handlers for quiz options
-        document.addEventListener('click', function(e) {
-            if (e.target.type === 'radio') {
-                // Remove selected class from all labels in this question
-                const questionName = e.target.name;
-                document.querySelectorAll(`input[name="${questionName}"]`).forEach(radio => {
-                    radio.closest('label').classList.remove('selected');
-                });
-                
-                // Add selected class to clicked label
-                e.target.closest('label').classList.add('selected');
-            }
-        });
-
-        // Keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
-                e.preventDefault();
-                changeSlide(1);
-            } else if (e.key === 'ArrowLeft') {
-                e.preventDefault();
-                changeSlide(-1);
-            } else if (e.key === 'Home') {
-                e.preventDefault();
-                showSlide(0);
-            } else if (e.key === 'End') {
-                e.preventDefault();
-                showSlide(totalSlides - 1);
-            }
-        });
-
-        // Initialize presentation
-        document.addEventListener('DOMContentLoaded', function() {
-            showSlide(0);
-            
-            // Pre-populate certificate dates even before quiz is taken
-            const today = new Date();
-            const completionDate = today.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-            
-            const nextYear = new Date(today);
-            nextYear.setFullYear(nextYear.getFullYear() + 1);
-            const nextTrainingDate = nextYear.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-            
-            document.getElementById('completion-date').textContent = completionDate;
-            document.getElementById('next-training-date').textContent = nextTrainingDate;
-            document.getElementById('final-score').textContent = 'Pending Quiz';
-        });
-    </script>);
-            } else if (e.key === 'Home') {
-                e.preventDefault();
-                showSlide(0);
-            } else if (e.key === 'End') {
-                e.preventDefault();
-                showSlide(totalSlides - 1);
-            }
-        });
-
-        // Initialize presentation
-        document.addEventListener('DOMContentLoaded', function() {
-            showSlide(0);
-        });
-    </script>);
-            } else if (e.key === 'Home') {
-                e.preventDefault();
-                showSlide(0);
-            } else if (e.key === 'End') {
-                e.preventDefault();
-                showSlide(totalSlides - 1);
-            }
-        });
-
-        // Initialize presentation
-        document.addEventListener('DOMContentLoaded', function() {
-            showSlide(0);
-        });
-    </script>
-</body>
-</html>
+                        <td style="border: 1px solid #dee2e6; padding
