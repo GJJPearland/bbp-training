@@ -12,7 +12,9 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js')
+                // Use relative path for GitHub Pages compatibility
+                const swPath = window.location.pathname.includes('/bbp-training/') ? '/bbp-training/service-worker.js' : '/service-worker.js';
+                navigator.serviceWorker.register(swPath)
                     .then(registration => {
                         console.log('ServiceWorker registration successful with scope: ', registration.scope);
                     })
