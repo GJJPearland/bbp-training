@@ -8,6 +8,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
+    <!-- Navigation Script -->
+    <script src="navigation.js"></script>
+    
     <!-- Service Worker Registration for Offline Support -->
     <script>
         if ('serviceWorker' in navigator) {
@@ -675,10 +678,16 @@
 
         <!-- Slide 1: Title -->
         <div class="slide active title-slide">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <img src="gjj-pearland-logo.png" alt="Gracie Jiu-Jitsu Pearland" style="max-width: 200px; height: auto;">
+            </div>
             <h1>Bloodborne Pathogen Training</h1>
             <h2>For BJJ School Staff and Instructors</h2>
             <p class="subtitle">OSHA Compliance Training</p>
             <div class="logo">🩸</div>
+            <div style="margin-bottom: 30px;">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgNDAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjMmMzZTUwIi8+Cjx0ZXh0IHg9IjIwMCIgeT0iMzAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5HUkFDSUUgSklVLUpJVFNVPC90ZXh0Pgo8dGV4dCB4PSIyMDAiIHk9IjU1IiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UEVBUkxBTkQ8L3RleHQ+Cjwvc3ZnPgo=" alt="Gracie Jiu-Jitsu Pearland" style="max-width: 300px; height: auto;">
+            </div>
             <div class="subtitle">BJJ School Staff Safety Protocol</div>
             <div class="subtitle">OSHA 29 CFR 1910.1030 Compliance</div>
         </div>
@@ -724,7 +733,349 @@
             </div>
         </div>
 
-        <!-- Slide 4: Quiz Introduction -->
+        <!-- Slide 4: Occupational Exposure in BJJ -->
+        <div class="slide">
+            <h1>Occupational Exposure in Our BJJ School</h1>
+            <h2>You have occupational exposure if your job duties may involve contact with:</h2>
+            <ul>
+                <li>Blood from cuts, bloody noses, or busted lips</li>
+                <li>Blood on training mats or equipment</li>
+                <li>Contaminated cleaning materials</li>
+                <li>Providing first aid to injured students</li>
+            </ul>
+            
+            <h3>Common Scenarios:</h3>
+            <div class="step-box">
+                <ul>
+                    <li>Student gets a cut during training</li>
+                    <li>Bloody nose during sparring</li>
+                    <li>Busted lip from contact</li>
+                    <li>Blood drops on mats that need cleaning</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 5: Universal Precautions -->
+        <div class="slide">
+            <h1>Universal Precautions</h1>
+            <div class="warning">
+                <h2 style="margin: 0; color: #721c24;">GOLDEN RULE</h2>
+                <h3 style="margin: 10px 0; color: #721c24;">Treat ALL blood and body fluids as if they are infectious</h3>
+            </div>
+            
+            <h3>This means:</h3>
+            <ul>
+                <li>Always use protective equipment when handling blood</li>
+                <li>Never assume blood is "safe" based on who it came from</li>
+                <li>Follow the same safety procedures every time</li>
+                <li>Don't take shortcuts, even for small amounts of blood</li>
+            </ul>
+        </div>
+
+        <!-- Slide 6: Personal Protective Equipment -->
+        <div class="slide">
+            <h1>Personal Protective Equipment (PPE)</h1>
+            <div class="success">
+                <h3>Required PPE for Blood Cleanup:</h3>
+                <p style="font-size: 1.3em;"><strong>Disposable gloves (nitrile or latex)</strong></p>
+            </div>
+            
+            <h3>PPE Guidelines:</h3>
+            <ul>
+                <li>Put on gloves BEFORE touching anything contaminated</li>
+                <li>Remove gloves properly (don't touch outside surface)</li>
+                <li>Wash hands immediately after removing gloves</li>
+                <li>Replace damaged or contaminated PPE immediately</li>
+                <li>Never reuse disposable gloves</li>
+            </ul>
+        </div>
+
+        <!-- Slide 7: Blood Cleanup Step 1-3 -->
+        <div class="slide">
+            <h1>Blood Cleanup Procedures (Steps 1-3)</h1>
+            <div class="step-box">
+                <h3>1. Secure the Area</h3>
+                <p>Place cones or barriers around contaminated area to keep students away</p>
+            </div>
+            
+            <div class="step-box">
+                <h3>2. Put on Gloves</h3>
+                <p>Before touching anything contaminated</p>
+            </div>
+            
+            <div class="step-box">
+                <h3>3. Clean Up Visible Blood</h3>
+                <p>Using disposable towels</p>
+            </div>
+        </div>
+
+        <!-- Slide 8: Blood Cleanup Step 4-6 -->
+        <div class="slide">
+            <h1>Blood Cleanup Procedures (Steps 4-6)</h1>
+            <div class="step-box">
+                <h3>4. Apply Mat Attack Disinfectant</h3>
+                <p>Liberally cover the entire contaminated area</p>
+            </div>
+            
+            <div class="warning">
+                <h3>5. Let Disinfectant Sit for 10 Minutes Minimum</h3>
+                <ul>
+                    <li>Surface must remain visibly wet during entire 10-minute period</li>
+                    <li>Ensures effectiveness against HIV (2 min), Hepatitis B (10 min), and Hepatitis C (10 min)</li>
+                    <li>Reapply if surface begins to dry</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h3>6. Dispose of Contaminated Materials</h3>
+                <p>In regular trash (in sealed plastic bag)</p>
+            </div>
+        </div>
+
+        <!-- Slide 9: Blood Cleanup Step 7-9 -->
+        <div class="slide">
+            <h1>Blood Cleanup Procedures (Steps 7-9)</h1>
+            <div class="step-box">
+                <h3>7. Remove Gloves Properly</h3>
+                <p>And dispose of them safely</p>
+            </div>
+            
+            <div class="step-box">
+                <h3>8. Wash Hands Thoroughly</h3>
+                <p>With soap and warm water</p>
+            </div>
+            
+            <div class="step-box">
+                <h3>9. Remove Barriers</h3>
+                <p>Only after full 10-minute contact time</p>
+            </div>
+            
+            <div class="highlight">
+                <strong>Remember:</strong> Classes may continue in unaffected areas while cleanup is in progress
+            </div>
+        </div>
+
+        <!-- Slide 10: First Aid Procedures -->
+        <div class="slide">
+            <h1>First Aid Procedures</h1>
+            <h2>When Providing First Aid:</h2>
+            <ul>
+                <li><strong>Always wear gloves</strong> before touching injured person</li>
+                <li><strong>Minimize contact</strong> with blood and body fluids</li>
+                <li><strong>Use barrier devices</strong> for mouth-to-mouth resuscitation</li>
+                <li><strong>Handle contaminated items carefully</strong></li>
+                <li><strong>Clean up properly</strong> after providing aid</li>
+            </ul>
+            
+            <h3>For Serious Injuries:</h3>
+            <div class="warning">
+                <ul>
+                    <li>Call 911 if needed</li>
+                    <li>Apply direct pressure to control bleeding (with gloves)</li>
+                    <li>Elevate injured area if appropriate</li>
+                    <li>Stay calm and keep student comfortable</li>
+                    <li>Follow up with incident documentation</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 11: Exposure Incidents -->
+        <div class="slide">
+            <h1>If You Are Exposed to Blood</h1>
+            <div class="step-box">
+                <h3>1. Immediate Action:</h3>
+                <ul>
+                    <li>Wash exposed skin with soap and warm water</li>
+                    <li>Flush eyes, nose, or mouth with clean water</li>
+                    <li>Report to management immediately</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h3>2. Medical Evaluation:</h3>
+                <ul>
+                    <li>Seek medical attention promptly</li>
+                    <li>We will provide medical evaluation at no cost</li>
+                    <li>Follow all medical recommendations</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h3>3. Documentation:</h3>
+                <ul>
+                    <li>Complete incident report</li>
+                    <li>Maintain confidential medical records</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 12: Contaminated Laundry Protocol -->
+        <div class="slide">
+            <h1>Contaminated Laundry Protocol</h1>
+            <div class="warning">
+                <h3>All Gis with Blood (Instructors and Students):</h3>
+                <ul>
+                    <li>Anyone with blood on their gi takes it home to wash</li>
+                    <li>Do NOT send blood-contaminated gis to outsourced laundry service</li>
+                    <li>Only non-contaminated uniforms go to laundry service</li>
+                    <li>Recommend washing bloody gis in hot water with bleach at home</li>
+                </ul>
+            </div>
+            
+            <h3>Other Contaminated Materials:</h3>
+            <ul>
+                <li><strong>Bloody paper towels/cleaning materials:</strong> Regular trash in sealed plastic bag</li>
+                <li><strong>Large blood spills:</strong> May require professional cleanup/disposal</li>
+                <li><strong>Student gis:</strong> Students responsible for their own contaminated gear</li>
+            </ul>
+        </div>
+
+        <!-- Slide 13: Hepatitis B Vaccination -->
+        <div class="slide">
+            <h1>Hepatitis B Vaccination</h1>
+            <div class="success">
+                <h3>Employer Responsibilities:</h3>
+                <ul>
+                    <li>Offer vaccination to all at-risk employees at no cost</li>
+                    <li>Provide within 10 working days of assignment</li>
+                    <li>Use licensed healthcare professional</li>
+                </ul>
+            </div>
+            
+            <h3>Employee Rights:</h3>
+            <ul>
+                <li>You may accept or decline vaccination</li>
+                <li>If declined, you must sign a declination form</li>
+                <li>You can request vaccination later if you change your mind</li>
+                <li>No cost to you for vaccination or evaluation</li>
+            </ul>
+            
+            <div class="highlight">
+                <strong>About the Vaccine:</strong> Safe and effective protection given as 3 shots over 6 months
+            </div>
+        </div>
+
+        <!-- Slide 14: Engineering and Work Practice Controls -->
+        <div class="slide">
+            <h1>Engineering and Work Practice Controls</h1>
+            <div class="two-column">
+                <div>
+                    <h3>Engineering Controls:</h3>
+                    <ul>
+                        <li>Handwashing stations readily available</li>
+                        <li>First aid supplies easily accessible</li>
+                        <li>Proper lighting for cleanup activities</li>
+                        <li>Non-slip surfaces to prevent injuries</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Work Practice Controls:</h3>
+                    <ul>
+                        <li>No eating, drinking, or smoking in areas where blood exposure may occur</li>
+                        <li>Proper hand hygiene after glove removal</li>
+                        <li>Immediate cleanup of blood spills</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Training Requirements -->
+        <div class="slide">
+            <h1>Training Requirements</h1>
+            <div class="step-box">
+                <h3>Initial Training:</h3>
+                <p>All new employees before starting duties</p>
+            </div>
+            
+            <div class="warning">
+                <h3>Annual Training:</h3>
+                <ul>
+                    <li>Required every 12 months</li>
+                    <li>Updates on new procedures or equipment</li>
+                    <li>Refresher on all key concepts</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h3>Additional Training:</h3>
+                <ul>
+                    <li>When job duties change</li>
+                    <li>When new equipment is introduced</li>
+                    <li>After exposure incidents if needed</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 16: Emergency Contacts -->
+        <div class="slide">
+            <h1>Emergency Contacts</h1>
+            <div class="emergency-contact">
+                <h3>For Exposure Incidents:</h3>
+                <div class="contact-info">
+                    <p>Management: 806-544-9557</p>
+                    <p>Emergency Medical: 911</p>
+                    <p>Poison Control: 1-800-222-1222</p>
+                </div>
+            </div>
+            
+            <div class="emergency-contact">
+                <h3>For Questions About This Training:</h3>
+                <div class="contact-info">
+                    <p>Safety Coordinator: Charlie Pelowski</p>
+                    <p>Phone: 806-544-9557</p>
+                    <p>OSHA Hotline: 1-800-321-OSHA</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Emergency Post-Exposure Protocol -->
+        <div class="slide">
+            <h1>Emergency Post-Exposure Protocol</h1>
+            <div class="warning">
+                <h3>Follow these steps immediately:</h3>
+            </div>
+            <ol>
+                <li><strong>Immediately wash exposed area</strong> with soap and warm water</li>
+                <li><strong>Report to management immediately</strong> (806-544-9557)</li>
+                <li><strong>Seek immediate medical evaluation</strong> (call 911 or go to nearest ER)</li>
+                <li><strong>Contact employee's personal healthcare provider</strong></li>
+                <li><strong>Complete incident documentation</strong></li>
+                <li><strong>Follow up as directed</strong> by medical professional</li>
+            </ol>
+        </div>
+
+        <!-- Slide 18: Key Takeaways -->
+        <div class="slide">
+            <h1>Key Takeaways</h1>
+            <div class="success">
+                <h3>Remember These Critical Points:</h3>
+            </div>
+            <ol style="font-size: 1.2em; line-height: 2;">
+                <li><strong>Universal Precautions:</strong> Treat all blood as infectious</li>
+                <li><strong>PPE is Required:</strong> Always wear gloves when handling blood</li>
+                <li><strong>Proper Cleanup:</strong> Follow step-by-step procedures every time</li>
+                <li><strong>Report Exposures:</strong> Immediate reporting and medical evaluation</li>
+                <li><strong>Annual Training:</strong> Required every year to stay current</li>
+            </ol>
+        </div>
+
+        <!-- Slide 19: Exposure Control Plan -->
+        <div class="slide">
+            <h1>Exposure Control Plan</h1>
+            <p style="font-size: 1.2em; margin-bottom: 30px;">Our facility maintains a written Exposure Control Plan that includes:</p>
+            <ul>
+                <li>Job classifications with occupational exposure</li>
+                <li>Procedures for evaluating exposure incidents</li>
+                <li>Schedule for reviewing and updating the plan</li>
+                <li>Methods of compliance with OSHA standard</li>
+            </ul>
+            
+            <div class="highlight">
+                <h3>The plan is available for your review at: Front desk</h3>
+            </div>
+        </div>
+
+        <!-- Slide 20: Quiz Introduction -->
         <div class="slide title-slide">
             <div class="logo">📝</div>
             <h1>Knowledge Check Quiz</h1>
@@ -738,10 +1089,10 @@
                     <li>Certificate will be generated upon passing</li>
                 </ul>
             </div>
-            <button class="nav-btn" style="margin-top: 30px; font-size: 1.2em; padding: 15px 30px;" id="start-quiz-btn">Start Quiz</button>
+            <button class="nav-btn" onclick="startQuiz()" style="margin-top: 30px; font-size: 1.2em; padding: 15px 30px;">Start Quiz</button>
         </div>
 
-        <!-- Quiz Slides -->
+        <!-- Quiz Slides (21-30) -->
         <div class="slide quiz-slide">
             <h1>Question 1 of 10</h1>
             <div class="question-box">
@@ -753,7 +1104,7 @@
                     <label><input type="radio" name="q1" value="d"> Use gloves only when convenient</label>
                 </div>
             </div>
-            <button class="quiz-btn" id="next-question-btn">Next Question</button>
+            <button class="quiz-btn" onclick="nextQuestion()">Next Question</button>
         </div>
 
         <div class="slide quiz-slide">
@@ -767,7 +1118,119 @@
                     <label><input type="radio" name="q2" value="d"> 15 minutes</label>
                 </div>
             </div>
-            <button class="quiz-btn" id="next-question-btn2">Next Question</button>
+            <button class="quiz-btn" onclick="nextQuestion()">Next Question</button>
+        </div>
+
+        <div class="slide quiz-slide">
+            <h1>Question 3 of 10</h1>
+            <div class="question-box">
+                <h3>Which bloodborne pathogens are of most concern in our BJJ school?</h3>
+                <div class="quiz-options">
+                    <label><input type="radio" name="q3" value="a"> Common cold and flu</label>
+                    <label><input type="radio" name="q3" value="b"> Hepatitis B, Hepatitis C, and HIV</label>
+                    <label><input type="radio" name="q3" value="c"> Strep throat and pneumonia</label>
+                    <label><input type="radio" name="q3" value="d"> Food poisoning bacteria</label>
+                </div>
+            </div>
+            <button class="quiz-btn" onclick="nextQuestion()">Next Question</button>
+        </div>
+
+        <div class="slide quiz-slide">
+            <h1>Question 4 of 10</h1>
+            <div class="question-box">
+                <h3>What should you do FIRST when you discover blood on the training mats?</h3>
+                <div class="quiz-options">
+                    <label><input type="radio" name="q4" value="a"> Start cleaning immediately</label>
+                    <label><input type="radio" name="q4" value="b"> Secure the area with cones or barriers</label>
+                    <label><input type="radio" name="q4" value="c"> Call 911</label>
+                    <label><input type="radio" name="q4" value="d"> Ask students to clean around it</label>
+                </div>
+            </div>
+            <button class="quiz-btn" onclick="nextQuestion()">Next Question</button>
+        </div>
+
+        <div class="slide quiz-slide">
+            <h1>Question 5 of 10</h1>
+            <div class="question-box">
+                <h3>What should you do with a gi that has blood on it?</h3>
+                <div class="quiz-options">
+                    <label><input type="radio" name="q5" value="a"> Send it to the regular laundry service</label>
+                    <label><input type="radio" name="q5" value="b"> The person takes it home to wash</label>
+                    <label><input type="radio" name="q5" value="c"> Throw it in the regular trash</label>
+                    <label><input type="radio" name="q5" value="d"> Leave it until the end of the day</label>
+                </div>
+            </div>
+            <button class="quiz-btn" onclick="nextQuestion()">Next Question</button>
+        </div>
+
+        <div class="slide quiz-slide">
+            <h1>Question 6 of 10</h1>
+            <div class="question-box">
+                <h3>If you are exposed to blood, what should you do immediately?</h3>
+                <div class="quiz-options">
+                    <label><input type="radio" name="q6" value="a"> Wait until the end of your shift to wash</label>
+                    <label><input type="radio" name="q6" value="b"> Wash exposed skin with soap and warm water, then report to management</label>
+                    <label><input type="radio" name="q6" value="c"> Apply bandages and continue working</label>
+                    <label><input type="radio" name="q6" value="d"> Just ignore small exposures</label>
+                </div>
+            </div>
+            <button class="quiz-btn" onclick="nextQuestion()">Next Question</button>
+        </div>
+
+        <div class="slide quiz-slide">
+            <h1>Question 7 of 10</h1>
+            <div class="question-box">
+                <h3>How often is bloodborne pathogen training required?</h3>
+                <div class="quiz-options">
+                    <label><input type="radio" name="q7" value="a"> Every 6 months</label>
+                    <label><input type="radio" name="q7" value="b"> Every 12 months (annually)</label>
+                    <label><input type="radio" name="q7" value="c"> Every 2 years</label>
+                    <label><input type="radio" name="q7" value="d"> Only when you start the job</label>
+                </div>
+            </div>
+            <button class="quiz-btn" onclick="nextQuestion()">Next Question</button>
+        </div>
+
+        <div class="slide quiz-slide">
+            <h1>Question 8 of 10</h1>
+            <div class="question-box">
+                <h3>What PPE is required for blood cleanup in our facility?</h3>
+                <div class="quiz-options">
+                    <label><input type="radio" name="q8" value="a"> Full hazmat suit</label>
+                    <label><input type="radio" name="q8" value="b"> Disposable gloves (nitrile or latex)</label>
+                    <label><input type="radio" name="q8" value="c"> Safety goggles only</label>
+                    <label><input type="radio" name="q8" value="d"> No PPE is necessary for small amounts</label>
+                </div>
+            </div>
+            <button class="quiz-btn" onclick="nextQuestion()">Next Question</button>
+        </div>
+
+        <div class="slide quiz-slide">
+            <h1>Question 9 of 10</h1>
+            <div class="question-box">
+                <h3>The Hepatitis B vaccination:</h3>
+                <div class="quiz-options">
+                    <label><input type="radio" name="q9" value="a"> Is mandatory for all employees</label>
+                    <label><input type="radio" name="q9" value="b"> Must be paid for by the employee</label>
+                    <label><input type="radio" name="q9" value="c"> Is offered at no cost, but employees can decline</label>
+                    <label><input type="radio" name="q9" value="d"> Is only for healthcare workers</label>
+                </div>
+            </div>
+            <button class="quiz-btn" onclick="nextQuestion()">Next Question</button>
+        </div>
+
+        <div class="slide quiz-slide">
+            <h1>Question 10 of 10</h1>
+            <div class="question-box">
+                <h3>Who should you contact for exposure incidents?</h3>
+                <div class="quiz-options">
+                    <label><input type="radio" name="q10" value="a"> Only call 911</label>
+                    <label><input type="radio" name="q10" value="b"> Management (806-544-9557) and seek medical attention</label>
+                    <label><input type="radio" name="q10" value="c"> Just document it later</label>
+                    <label><input type="radio" name="q10" value="d"> Handle it yourself</label>
+                </div>
+            </div>
+            <button class="quiz-btn" onclick="submitQuiz()">Submit Quiz</button>
         </div>
 
         <!-- Quiz Results Slide -->
@@ -783,6 +1246,9 @@
             <div class="certificate">
                 <div class="certificate-border">
                     <div class="certificate-header">
+                        <div style="margin-bottom: 20px;">
+                            <img src="gjj-pearland-logo.png" alt="Gracie Jiu-Jitsu Pearland" style="max-width: 250px; height: auto;">
+                        </div>
                         <h1>CERTIFICATE OF COMPLETION</h1>
                         <div class="certificate-subtitle">Bloodborne Pathogen Training</div>
                     </div>
@@ -795,7 +1261,7 @@
                         <p class="certificate-text">has successfully completed the</p>
                         <div class="certificate-course">OSHA Bloodborne Pathogen Training</div>
                         <p class="certificate-text">in accordance with 29 CFR 1910.1030</p>
-                        <p class="certificate-text">for BJJ School Staff</p>
+                        <p class="certificate-text">for Gracie Jiu-Jitsu Pearland Staff</p>
                         
                         <div class="certificate-details">
                             <div class="detail-item">
@@ -820,14 +1286,45 @@
                     </div>
                 </div>
             </div>
-            <button class="nav-btn" id="print-cert-btn" style="margin-top: 20px;">Print Certificate</button>
-            <button class="nav-btn" id="save-pdf-btn" style="margin-top: 20px; margin-left: 15px; background: #17a2b8;">Save as PDF</button>
+            <button class="nav-btn" onclick="printCertificate()" style="margin-top: 20px;">Print Certificate</button>
+            <button class="nav-btn" onclick="savePDF()" style="margin-top: 20px; margin-left: 15px; background: #17a2b8;">Save as PDF</button>
+            <button class="nav-btn" onclick="emailCertificate()" style="margin-top: 20px; margin-left: 15px; background: #28a745;">Email to Instructor</button>
+            
+            <!-- Email Submission Form (hidden by default) -->
+            <div id="email-form" style="display: none; margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px; border: 2px solid #dee2e6;">
+                <h3 style="color: #2c3e50; margin-bottom: 20px;">Submit Certificate to Instructor</h3>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Student Email:</label>
+                    <input type="email" id="student-email" placeholder="your.email@example.com" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Additional Comments (Optional):</label>
+                    <textarea id="student-comments" placeholder="Any questions or comments..." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; height: 80px; resize: vertical;"></textarea>
+                </div>
+                <button class="nav-btn" onclick="submitCertificate()" style="background: #28a745;">Submit Certificate</button>
+                <button class="nav-btn" onclick="cancelEmail()" style="background: #6c757d; margin-left: 10px;">Cancel</button>
+            </div>
+        </div>
+
+        <!-- Admin Panel Slide (Hidden) -->
+        <div class="slide" id="admin-panel" style="display: none;">
+            <h1>Admin Panel - Training Completions</h1>
+            <div style="margin-bottom: 20px;">
+                <button class="nav-btn" onclick="showCompletions()" style="background: #17a2b8;">View Completions</button>
+                <button class="nav-btn" onclick="exportCompletions()" style="background: #28a745; margin-left: 10px;">Export Data</button>
+                <button class="nav-btn" onclick="clearCompletions()" style="background: #dc3545; margin-left: 10px;">Clear Data</button>
+                <button class="nav-btn" onclick="hideAdminPanel()" style="background: #6c757d; margin-left: 10px;">Close</button>
+            </div>
+            
+            <div id="completions-display" style="max-height: 400px; overflow-y: auto; background: #f8f9fa; padding: 20px; border-radius: 10px; border: 1px solid #dee2e6;">
+                <p>Click "View Completions" to see training records.</p>
+            </div>
         </div>
     </div>
 
     <div class="navigation">
-        <button class="nav-btn" id="prev-btn">← Previous</button>
-        <button class="nav-btn" id="next-btn">Next →</button>
+        <button class="nav-btn" onclick="window.prevSlide()">← Previous</button>
+        <button class="nav-btn" onclick="window.nextSlide()">Next →</button>
     </div>
 
     <script>
@@ -836,132 +1333,180 @@
         let slides;
         let visibleSlides;
         let totalSlides;
-        let quizPassed = false;
-        let currentQuestionIndex = 0;
-        let quizAnswers = {};
-        let completionId = null;
         
-        const correctAnswers = {
-            q1: 'b', q2: 'c'
+        // Navigation functions - defined in the global scope
+        window.prevSlide = function() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
         };
         
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeSlides();
-            setupEventListeners();
-            showSlide(0);
-        });
+        window.nextSlide = function() {
+            if (currentSlide < visibleSlides.length - 1) {
+                window.showSlide(currentSlide + 1);
+            }
+        };
         
-        function initializeSlides() {
-            slides = document.querySelectorAll('.slide');
-            visibleSlides = Array.from(slides);
-            totalSlides = visibleSlides.length;
-            
-            document.getElementById('total-slides').textContent = totalSlides;
-        }
-        
-        function setupEventListeners() {
-            // Navigation buttons
-            document.getElementById('prev-btn').addEventListener('click', prevSlide);
-            document.getElementById('next-btn').addEventListener('click', nextSlide);
-            
-            // Quiz buttons
-            const startQuizBtn = document.getElementById('start-quiz-btn');
-            if (startQuizBtn) {
-                startQuizBtn.addEventListener('click', startQuiz);
+        window.showSlide = function(n) {
+            // Make sure slides are initialized
+            if (!slides) {
+                slides = document.querySelectorAll('.slide');
+                visibleSlides = Array.from(slides).filter(slide => slide.id !== 'admin-panel');
+                totalSlides = visibleSlides.length;
             }
             
-            const nextQuestionBtn = document.getElementById('next-question-btn');
-            if (nextQuestionBtn) {
-                nextQuestionBtn.addEventListener('click', nextQuestion);
-            }
-            
-            const nextQuestionBtn2 = document.getElementById('next-question-btn2');
-            if (nextQuestionBtn2) {
-                nextQuestionBtn2.addEventListener('click', submitQuiz);
-            }
-            
-            // Certificate buttons
-            const printBtn = document.getElementById('print-cert-btn');
-            if (printBtn) {
-                printBtn.addEventListener('click', printCertificate);
-            }
-            
-            const savePdfBtn = document.getElementById('save-pdf-btn');
-            if (savePdfBtn) {
-                savePdfBtn.addEventListener('click', savePDF);
-            }
-            
-            // Keyboard navigation
-            document.addEventListener('keydown', function(e) {
-                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
-                    return;
-                }
-                
-                if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
-                    prevSlide();
-                } else if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
-                    nextSlide();
-                } else if (e.key === 'Home') {
-                    showSlide(0);
-                } else if (e.key === 'End') {
-                    showSlide(visibleSlides.length - 1);
-                }
-            });
-        }
-        
-        function showSlide(n) {
-            // Validate slide index
-            if (n < 0 || n >= visibleSlides.length) return;
-            
-            // Check if trying to access certificate without passing quiz
+            // Check if trying to access certificate without passing quiz 
             if (n === visibleSlides.length - 1 && !quizPassed) {
                 alert('You must complete and pass the quiz before accessing the certificate.');
                 return;
             }
             
             // Hide all slides
-            visibleSlides.forEach(slide => {
-                slide.classList.remove('active');
+            for (let i = 0; i < visibleSlides.length; i++) {
+                visibleSlides[i].style.display = 'none';
+            }
+            
+            // Show the selected slide
+            visibleSlides[n].style.display = 'block';
+            currentSlide = n;
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === visibleSlides.length - 1;
+            
+            // Update progress bar
+            const progressPercentage = ((currentSlide + 1) / visibleSlides.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progressPercentage}%`;
+            
+            // Save progress to localStorage
+            localStorage.setItem('bbp_current_slide', currentSlide);
+        }
+        
+        // Initialize the first slide
+        // Function to resume progress
+        function resumeProgress() {
+            const savedSlide = localStorage.getItem('bbp_current_slide');
+            if (savedSlide !== null) {
+                const slideIndex = parseInt(savedSlide);
+                if (!isNaN(slideIndex) && slideIndex >= 0 && slideIndex < visibleSlides.length) {
+                    return slideIndex;
+                }
+            }
+            return 0;
+        }
+        
+        // Initialize variables at the global level
+        slides = document.querySelectorAll('.slide');
+        visibleSlides = Array.from(slides).filter(slide => slide.id !== 'admin-panel');
+        totalSlides = visibleSlides.length;
+        
+        // Initialize slides on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize slides
+            slides = document.querySelectorAll('.slide');
+            visibleSlides = Array.from(slides).filter(slide => slide.id !== 'admin-panel');
+            totalSlides = visibleSlides.length;
+            
+            // Add keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                // Skip keyboard navigation when inside form fields
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                    return;
+                }
+                
+                // Left arrow or Page Up: Previous slide
+                if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                    prevSlide();
+                }
+                // Right arrow or Page Down: Next slide
+                else if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+                    nextSlide();
+                }
+                // Home key: First slide
+                else if (e.key === 'Home') {
+                    showSlide(0);
+                }
+                // End key: Last slide
+                else if (e.key === 'End') {
+                    if (quizPassed) {
+                        showSlide(visibleSlides.length - 1);
+                    } else {
+                        showSlide(visibleSlides.length - 2); // Go to quiz slide
+                    }
+                }
+            });
+            
+            // Check for saved progress
+            const resumeSlideIndex = resumeProgress();
+            if (resumeSlideIndex > 0) {
+                // Ask if user wants to resume
+                const resumeConfirm = confirm("Would you like to resume from where you left off?");
+                if (resumeConfirm) {
+                    showSlide(resumeSlideIndex);
+                } else {
+                    showSlide(0);
+                }
+            } else {
+                showSlide(0);
+            }
+        });
+        
+        // Quiz variables
+        let currentQuestionIndex = 0;
+        let quizStarted = false;
+        let quizPassed = false;
+        let quizAnswers = {};
+        let completionId = null;
+        const correctAnswers = {
+            q1: 'b', q2: 'c', q3: 'b', q4: 'b', q5: 'b',
+            q6: 'b', q7: 'b', q8: 'b', q9: 'c', q10: 'b'
+        };
+        
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            // Check if trying to access certificate without passing quiz
+            if (n === visibleSlides.length - 1 && !quizPassed) {
+                alert('You must complete and pass the quiz before accessing the certificate.');
+                return;
+            }
+            
+            // Hide all slides except admin panel
+            slides.forEach(slide => {
+                if (slide.id !== 'admin-panel') {
+                    slide.classList.remove('active');
+                }
             });
             
             // Show the target slide
             currentSlide = n;
             visibleSlides[currentSlide].classList.add('active');
             
-            // Update counter
+            // Update counter (don't count admin panel)
             document.getElementById('current-slide').textContent = currentSlide + 1;
+            document.getElementById('total-slides').textContent = visibleSlides.length;
             
             // Update navigation buttons
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            
-            prevBtn.disabled = currentSlide === 0;
-            nextBtn.disabled = currentSlide === visibleSlides.length - 1;
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === visibleSlides.length - 1;
             
             // Update progress bar
             const progressPercentage = ((currentSlide + 1) / visibleSlides.length) * 100;
             document.getElementById('progress-bar').style.width = `${progressPercentage}%`;
+            
+            // Save progress to localStorage
+            localStorage.setItem('bbp_current_slide', currentSlide);
         }
-        
-        function prevSlide() {
-            if (currentSlide > 0) {
-                showSlide(currentSlide - 1);
-            }
-        }
-        
-        function nextSlide() {
-            if (currentSlide < visibleSlides.length - 1) {
-                showSlide(currentSlide + 1);
-            }
-        }
-        
+
+        // changeSlide function removed - using direct event listeners instead
+
         function startQuiz() {
+            quizStarted = true;
             currentQuestionIndex = 0;
             quizAnswers = {};
-            showSlide(4); // Go to first quiz question
+            showSlide(20);
         }
-        
+
         function nextQuestion() {
             const questionNum = currentQuestionIndex + 1;
             const selectedAnswer = document.querySelector(`input[name="q${questionNum}"]:checked`);
@@ -974,18 +1519,18 @@
             quizAnswers[`q${questionNum}`] = selectedAnswer.value;
             currentQuestionIndex++;
             
-            if (currentQuestionIndex < 2) {
-                showSlide(4 + currentQuestionIndex);
+            if (currentQuestionIndex < 10) {
+                showSlide(20 + currentQuestionIndex);
             }
         }
-        
+
         function submitQuiz() {
-            const selectedAnswer = document.querySelector('input[name="q2"]:checked');
+            const selectedAnswer = document.querySelector('input[name="q10"]:checked');
             if (!selectedAnswer) {
                 alert('Please select an answer before submitting.');
                 return;
             }
-            quizAnswers.q2 = selectedAnswer.value;
+            quizAnswers.q10 = selectedAnswer.value;
             
             let correctCount = 0;
             for (let question in correctAnswers) {
@@ -994,11 +1539,11 @@
                 }
             }
             
-            const scorePercentage = (correctCount / 2) * 100;
+            const scorePercentage = (correctCount / 10) * 100;
             const passed = scorePercentage >= 80;
             showQuizResults(scorePercentage, correctCount, passed);
         }
-        
+
         function showQuizResults(score, correct, passed) {
             const resultsContent = document.getElementById('results-content');
             
@@ -1008,41 +1553,33 @@
                     <div class="results-box pass-result">
                         <h2>🎉 Congratulations!</h2>
                         <div class="score-display pass-score">${score}%</div>
-                        <p><strong>You scored ${correct} out of 2 questions correct.</strong></p>
+                        <p><strong>You scored ${correct} out of 10 questions correct.</strong></p>
                         <p>You have successfully passed the Bloodborne Pathogen Training!</p>
-                        <button class="nav-btn" id="generate-cert-btn">Generate Certificate</button>
+                        <button class="nav-btn" onclick="generateCertificate(${score})">Generate Certificate</button>
                     </div>
                 `;
-                
-                // Add event listener to the generate certificate button
-                document.getElementById('generate-cert-btn').addEventListener('click', () => generateCertificate(score));
             } else {
                 quizPassed = false;
                 resultsContent.innerHTML = `
                     <div class="results-box fail-result">
                         <h2>Review Required</h2>
                         <div class="score-display fail-score">${score}%</div>
-                        <p><strong>You scored ${correct} out of 2 questions correct.</strong></p>
+                        <p><strong>You scored ${correct} out of 10 questions correct.</strong></p>
                         <p>You need 80% or higher to pass. Please review the training material and retake the quiz.</p>
-                        <button class="nav-btn" id="retake-quiz-btn">Retake Quiz</button>
-                        <button class="nav-btn" id="review-training-btn" style="background: #6c757d;">Review Training</button>
+                        <button class="nav-btn" onclick="retakeQuiz()">Retake Quiz</button>
+                        <button class="nav-btn" onclick="showSlide(0)" style="background: #6c757d;">Review Training</button>
                     </div>
                 `;
-                
-                // Add event listeners to the buttons
-                document.getElementById('retake-quiz-btn').addEventListener('click', retakeQuiz);
-                document.getElementById('review-training-btn').addEventListener('click', () => showSlide(0));
             }
             
-            showSlide(6); // Show results slide
+            showSlide(visibleSlides.length - 3);
         }
-        
+
         function retakeQuiz() {
             quizAnswers = {};
             currentQuestionIndex = 0;
             quizPassed = false;
             
-            // Clear all radio buttons
             document.querySelectorAll('input[type="radio"]').forEach(radio => {
                 radio.checked = false;
             });
@@ -1050,7 +1587,7 @@
             document.getElementById('final-score').textContent = 'Quiz Not Completed';
             startQuiz();
         }
-        
+
         function generateCertificate(score) {
             completionId = 'BBP-' + Date.now().toString(36) + '-' + Math.random().toString(36).substr(2, 5);
             
@@ -1070,16 +1607,26 @@
             document.getElementById('completion-id').textContent = completionId;
             document.getElementById('next-training-date').textContent = nextTrainingDate;
             
-            showSlide(7); // Show certificate slide
+            const completionData = {
+                id: completionId, completionDate: completionDate,
+                nextTrainingDate: nextTrainingDate, score: score,
+                timestamp: new Date().toISOString()
+            };
             
+            try {
+                let completions = JSON.parse(localStorage.getItem('bbp-completions') || '[]');
+                completions.push(completionData);
+                localStorage.setItem('bbp-completions', JSON.stringify(completions));
+            } catch (e) {
+                console.log('Local storage not available');
+            }
+            
+            showSlide(visibleSlides.length - 2);
             setTimeout(() => {
-                const nameInput = document.getElementById('employee-name');
-                if (nameInput) {
-                    nameInput.focus();
-                }
+                document.getElementById('employee-name').focus();
             }, 100);
         }
-        
+
         function printCertificate() {
             if (!quizPassed) {
                 alert('You must complete and pass the quiz before printing the certificate.');
@@ -1097,7 +1644,7 @@
             
             window.print();
         }
-        
+
         function savePDF() {
             if (!quizPassed) {
                 alert('You must complete and pass the quiz before saving the certificate.');
@@ -1114,7 +1661,7 @@
             }
             
             // Show loading message
-            const saveBtn = document.getElementById('save-pdf-btn');
+            const saveBtn = document.querySelector('button[onclick="savePDF()"]');
             const originalText = saveBtn.textContent;
             saveBtn.textContent = 'Generating PDF...';
             saveBtn.disabled = true;
@@ -1124,8 +1671,8 @@
             
             // Use html2canvas to capture the certificate
             html2canvas(certificateElement, {
-                scale: 2,
-                useCORS: true,
+                scale: 2, // Higher resolution
+                useCORS: true, // Allow loading cross-origin images
                 allowTaint: true,
                 backgroundColor: '#ffffff'
             }).then(canvas => {
@@ -1135,8 +1682,8 @@
                 
                 // Add the canvas image to the PDF
                 const imgData = canvas.toDataURL('image/png');
-                const imgWidth = 279.4;
-                const imgHeight = 215.9;
+                const imgWidth = 279.4; // Letter size width in landscape (11 inches)
+                const imgHeight = 215.9; // Letter size height in landscape (8.5 inches)
                 
                 pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
                 
@@ -1154,6 +1701,160 @@
                 saveBtn.disabled = false;
             });
         }
-    </script>
-</body>
-</html>
+
+        function emailCertificate() {
+            if (!quizPassed) {
+                alert('You must complete and pass the quiz before emailing the certificate.');
+                return;
+            }
+            
+            const nameInput = document.getElementById('employee-name');
+            const name = nameInput.value.trim();
+            
+            if (!name) {
+                alert('Please enter your full name before emailing the certificate.');
+                nameInput.focus();
+                return;
+            }
+            
+            document.getElementById('email-form').style.display = 'block';
+            document.getElementById('student-email').focus();
+        }
+
+        function cancelEmail() {
+            document.getElementById('email-form').style.display = 'none';
+            document.getElementById('student-email').value = '';
+            document.getElementById('student-comments').value = '';
+        }
+
+        function submitCertificate() {
+            const studentEmail = document.getElementById('student-email').value.trim();
+            const studentName = document.getElementById('employee-name').value.trim();
+            const comments = document.getElementById('student-comments').value.trim();
+            
+            if (!studentEmail) {
+                alert('Please enter your email address.');
+                document.getElementById('student-email').focus();
+                return;
+            }
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(studentEmail)) {
+                alert('Please enter a valid email address.');
+                document.getElementById('student-email').focus();
+                return;
+            }
+            
+            const submissionData = {
+                studentName: studentName, studentEmail: studentEmail,
+                completionId: completionId,
+                completionDate: document.getElementById('completion-date').textContent,
+                score: document.getElementById('final-score').textContent,
+                nextTrainingDate: document.getElementById('next-training-date').textContent,
+                comments: comments, submissionTime: new Date().toISOString()
+            };
+            
+            // Instructor email address for certificate submissions
+            const instructorEmail = 'gjjpearland@gmail.com';
+            const subject = `BBP Training Certificate - ${studentName} (ID: ${completionId})`;
+            const body = `Bloodborne Pathogen Training Certificate Submission
+
+Student Information:
+- Name: ${studentName}
+- Email: ${studentEmail}
+- Completion ID: ${completionId}
+- Completion Date: ${document.getElementById('completion-date').textContent}
+- Quiz Score: ${document.getElementById('final-score').textContent}
+- Next Training Due: ${document.getElementById('next-training-date').textContent}
+
+${comments ? `Comments: ${comments}` : ''}
+
+This email confirms successful completion of OSHA Bloodborne Pathogen Training.
+
+Submitted via BJJ School Training System
+Timestamp: ${new Date().toLocaleString()}`;
+            
+            try {
+                let submissions = JSON.parse(localStorage.getItem('bbp-submissions') || '[]');
+                submissions.push(submissionData);
+                localStorage.setItem('bbp-submissions', JSON.stringify(submissions));
+            } catch (e) {
+                console.log('Local storage not available');
+            }
+            
+            const mailtoLink = `mailto:${instructorEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoLink;
+            
+            alert(`Certificate submission prepared!\n\nAn email has been opened with your completion details.\nCompletion ID: ${completionId}\n\nPlease send the email to complete your submission.`);
+            cancelEmail();
+        }
+
+        function showAdminPanel() {
+            document.getElementById('admin-panel').style.display = 'block';
+            document.getElementById('admin-panel').classList.add('active');
+            document.querySelector('.navigation').style.display = 'none';
+            document.querySelector('.slide-counter').style.display = 'none';
+        }
+
+        function hideAdminPanel() {
+            document.getElementById('admin-panel').style.display = 'none';
+            document.getElementById('admin-panel').classList.remove('active');
+            document.querySelector('.navigation').style.display = 'flex';
+            document.querySelector('.slide-counter').style.display = 'block';
+            showSlide(0);
+        }
+
+        function showCompletions() {
+            let completions = [];
+            let submissions = [];
+            
+            try {
+                completions = JSON.parse(localStorage.getItem('bbp-completions') || '[]');
+                submissions = JSON.parse(localStorage.getItem('bbp-submissions') || '[]');
+            } catch (e) {
+                console.log('Local storage not available');
+            }
+            
+            const display = document.getElementById('completions-display');
+            
+            if (completions.length === 0 && submissions.length === 0) {
+                display.innerHTML = '<p>No training completions recorded yet.</p>';
+                return;
+            }
+            
+            let html = '<h3>Training Completions</h3>';
+            
+            if (completions.length > 0) {
+                html += '<h4>Local Completions:</h4>';
+                html += '<table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">';
+                html += '<tr style="background: #e9ecef;"><th style="border: 1px solid #dee2e6; padding: 8px;">Completion ID</th><th style="border: 1px solid #dee2e6; padding: 8px;">Date</th><th style="border: 1px solid #dee2e6; padding: 8px;">Score</th><th style="border: 1px solid #dee2e6; padding: 8px;">Next Due</th></tr>';
+                
+                completions.forEach(completion => {
+                    html += `<tr>
+                        <td style="border: 1px solid #dee2e6; padding: 8px;">${completion.id}</td>
+                        <td style="border: 1px solid #dee2e6; padding: 8px;">${completion.completionDate}</td>
+                        <td style="border: 1px solid #dee2e6; padding: 8px;">${completion.score}%</td>
+                        <td style="border: 1px solid #dee2e6; padding: 8px;">${completion.nextTrainingDate}</td>
+                    </tr>`;
+                });
+                html += '</table>';
+            }
+            
+            if (submissions.length > 0) {
+                html += '<h4>Submitted Certificates:</h4>';
+                html += '<table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">';
+                html += '<tr style="background: #e9ecef;"><th style="border: 1px solid #dee2e6; padding: 8px;">Name</th><th style="border: 1px solid #dee2e6; padding: 8px;">Email</th><th style="border: 1px solid #dee2e6; padding: 8px;">Date</th><th style="border: 1px solid #dee2e6; padding: 8px;">ID</th></tr>';
+                
+                submissions.forEach(submission => {
+                    html += `<tr>
+                        <td style="border: 1px solid #dee2e6; padding: 8px;">${submission.name}</td>
+                        <td style="border: 1px solid #dee2e6; padding: 8px;">${submission.email}</td>
+                        <td style="border: 1px solid #dee2e6; padding: 8px;">${submission.date}</td>
+                        <td style="border: 1px solid #dee2e6; padding: 8px;">${submission.id}</td>
+                    </tr>`;
+                });
+                html += '</table>';
+            }
+            
+            display.innerHTML = html;
+        }
