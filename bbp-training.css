@@ -1,4 +1,205 @@
-/**
+/* Logo and Image Styles */
+.logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.title-logo {
+    max-width: 200px;
+    height: auto;
+}
+
+.school-banner {
+    margin-bottom: 30px;
+}
+
+.banner-logo {
+    max-width: 300px;
+    height: auto;
+}
+
+/* Pathogen Section Styles */
+.pathogen-intro {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.pathogen-center {
+    text-align: center;
+}
+
+.pathogen-hiv {
+    display: inline-block;
+    width: 45%;
+}
+
+/* Key Takeaways */
+.key-takeaways {
+    font-size: 1.2em;
+    line-height: 2;
+}
+
+/* Plan Introduction */
+.plan-intro {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+/* Quiz Instructions */
+.quiz-instructions {
+    margin-top: 40px;
+    text-align: left;
+}
+
+.instruction-list {
+    margin-left: 0;
+}
+
+.quiz-start-btn {
+    margin-top: 30px;
+    font-size: 1.2em;
+    padding: 15px 30px;
+}
+
+/* Results Wrapper */
+.results-wrapper {
+    min-height: 300px;
+    padding: 20px;
+}
+
+.loading-content {
+    text-align: center;
+    color: #666;
+    font-size: 1.2em;
+}
+
+.loading-spinner {
+    margin: 20px 0;
+}
+
+.spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #e74c3c;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Certificate Logo */
+.certificate-logo-container {
+    margin-bottom: 20px;
+}
+
+.certificate-logo {
+    max-width: 250px;
+    height: auto;
+}
+
+/* Certificate Button Styles */
+.certificate-button-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.95);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.cert-pdf-btn {
+    background: #17a2b8;
+}
+
+.cert-email-btn {
+    background: #28a745;
+}
+
+/* Email Form Styles */
+.email-form-container {
+    display: none;
+    position: absolute;
+    bottom: 180px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border: 2px solid #dee2e6;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.email-form-title {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.email-form-field {
+    margin-bottom: 15px;
+}
+
+.email-form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.email-form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.email-form-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 80px;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.email-form-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.cert-submit-btn {
+    background: #28a745;
+}
+
+/* Additional Classes for Clean HTML Structure */
+
+/* Golden Rule Styles */
+.golden-rule-title {
+    margin: 0;
+    color: #721c24;
+}
+
+.golden-rule-subtitle {
+    margin: 10px 0;
+    color: #721c24;
+}
+
+/* PPE Requirement */
+.ppe-requirement {
+    font-size: 1.3em;
+}
+
+.cert-cancel-btn {
+    background: #6c757d;
+}/**
  * BBP Training System - Main Stylesheet
  * Bloodborne Pathogen Training for BJJ Schools
  * Complete styling for slides, navigation, quiz, and certificate
