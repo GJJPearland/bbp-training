@@ -1323,8 +1323,8 @@
     </div>
 
     <div class="navigation">
-        <button class="nav-btn" onclick="prevSlide()">← Previous</button>
-        <button class="nav-btn" onclick="nextSlide()">Next →</button>
+        <button class="nav-btn" onclick="window.prevSlide()">← Previous</button>
+        <button class="nav-btn" onclick="window.nextSlide()">Next →</button>
     </div>
 
     <script>
@@ -1334,47 +1334,41 @@
         let visibleSlides;
         let totalSlides;
         
-        // Navigation functions
-        function prevSlide() {
+        // Navigation functions - defined in the global scope
+        window.prevSlide = function() {
             if (currentSlide > 0) {
                 showSlide(currentSlide - 1);
             }
-        }
+        };
         
-        function nextSlide() {
+        window.nextSlide = function() {
             if (currentSlide < visibleSlides.length - 1) {
-                showSlide(currentSlide + 1);
+                window.showSlide(currentSlide + 1);
             }
-        }
+        };
         
-        function showSlide(n) {
+        window.showSlide = function(n) {
             // Make sure slides are initialized
-            if (!slides || !visibleSlides) {
+            if (!slides) {
                 slides = document.querySelectorAll('.slide');
                 visibleSlides = Array.from(slides).filter(slide => slide.id !== 'admin-panel');
                 totalSlides = visibleSlides.length;
             }
             
-            // Check if trying to access certificate without passing quiz
+            // Check if trying to access certificate without passing quiz 
             if (n === visibleSlides.length - 1 && !quizPassed) {
                 alert('You must complete and pass the quiz before accessing the certificate.');
                 return;
             }
             
-            // Hide all slides except admin panel
-            slides.forEach(slide => {
-                if (slide.id !== 'admin-panel') {
-                    slide.classList.remove('active');
-                }
-            });
+            // Hide all slides
+            for (let i = 0; i < visibleSlides.length; i++) {
+                visibleSlides[i].style.display = 'none';
+            }
             
-            // Show the target slide
+            // Show the selected slide
+            visibleSlides[n].style.display = 'block';
             currentSlide = n;
-            visibleSlides[currentSlide].classList.add('active');
-            
-            // Update counter (don't count admin panel)
-            document.getElementById('current-slide').textContent = currentSlide + 1;
-            document.getElementById('total-slides').textContent = visibleSlides.length;
             
             // Update navigation buttons
             document.getElementById('prevBtn').disabled = currentSlide === 0;
