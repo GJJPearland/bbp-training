@@ -1323,8 +1323,8 @@
     </div>
 
     <div class="navigation">
-        <button class="nav-btn" onclick="window.prevSlide()">← Previous</button>
-        <button class="nav-btn" onclick="window.nextSlide()">Next →</button>
+        <button class="nav-btn" onclick="prevSlide()">← Previous</button>
+        <button class="nav-btn" onclick="nextSlide()">Next →</button>
     </div>
 
     <script>
@@ -1335,19 +1335,19 @@
         let totalSlides;
         
         // Navigation functions - defined in the global scope
-        window.prevSlide = function() {
+        function prevSlide() {
             if (currentSlide > 0) {
                 showSlide(currentSlide - 1);
             }
-        };
+        }
         
-        window.nextSlide = function() {
+        function nextSlide() {
             if (currentSlide < visibleSlides.length - 1) {
-                window.showSlide(currentSlide + 1);
+                showSlide(currentSlide + 1);
             }
-        };
+        }
         
-        window.showSlide = function(n) {
+        function showSlide(n) {
             // Make sure slides are initialized
             if (!slides) {
                 slides = document.querySelectorAll('.slide');
@@ -1362,17 +1362,17 @@
             }
             
             // Hide all slides
-            for (let i = 0; i < visibleSlides.length; i++) {
-                visibleSlides[i].style.display = 'none';
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].classList.remove('active');
             }
             
             // Show the selected slide
-            visibleSlides[n].style.display = 'block';
             currentSlide = n;
+            visibleSlides[currentSlide].classList.add('active');
             
-            // Update navigation buttons
-            document.getElementById('prevBtn').disabled = currentSlide === 0;
-            document.getElementById('nextBtn').disabled = currentSlide === visibleSlides.length - 1;
+            // Update counter
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+            document.getElementById('total-slides').textContent = visibleSlides.length;
             
             // Update progress bar
             const progressPercentage = ((currentSlide + 1) / visibleSlides.length) * 100;
