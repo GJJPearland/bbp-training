@@ -1,0 +1,742 @@
+/**
+ * BBP Training System - Main Stylesheet
+ * Bloodborne Pathogen Training for BJJ Schools
+ * Complete styling for slides, navigation, quiz, and certificate
+ */
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #333;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+    
+    .slide {
+        width: 95%;
+        padding: 20px;
+        margin: 2% auto;
+    }
+    
+    .slide h1 {
+        font-size: 1.8em;
+    }
+    
+    .slide h2 {
+        font-size: 1.5em;
+    }
+    
+    .navigation {
+        bottom: 10px;
+    }
+    
+    .nav-btn {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .slide {
+        width: 98%;
+        padding: 15px;
+        margin: 1% auto;
+    }
+    
+    .slide h1 {
+        font-size: 1.5em;
+    }
+    
+    .navigation {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .certificate-border {
+        padding: 20px;
+    }
+}
+
+/* Layout Components */
+.presentation-container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+.slide {
+    width: 90%;
+    height: 85%;
+    background: white;
+    margin: 2.5% auto;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    padding: 40px;
+    position: absolute;
+    top: 2.5%;
+    left: 5%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out;
+    overflow-y: auto;
+}
+
+/* Special handling for certificate slide */
+#certificate-slide {
+    height: auto;
+    min-height: 85%;
+    padding-bottom: 200px; /* Extra space for buttons below certificate */
+    position: relative;
+    overflow-y: auto; /* Allow scrolling if needed */
+}
+
+.certificate-actions {
+    position: relative; /* Changed from absolute to relative */
+    margin-top: 30px; /* Space between certificate and buttons */
+    width: 100%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.slide.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Typography */
+.slide h1 {
+    color: #2c3e50;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-align: center;
+    border-bottom: 3px solid #e74c3c;
+    padding-bottom: 10px;
+}
+
+.slide h2 {
+    color: #e74c3c;
+    font-size: 2em;
+    margin: 25px 0 15px 0;
+    border-left: 5px solid #e74c3c;
+    padding-left: 15px;
+}
+
+.slide h3 {
+    color: #34495e;
+    font-size: 1.4em;
+    margin: 20px 0 10px 0;
+}
+
+.slide ul {
+    margin: 15px 0 15px 30px;
+    line-height: 1.8;
+}
+
+.slide li {
+    margin: 8px 0;
+    font-size: 1.1em;
+}
+
+.slide ol {
+    margin: 15px 0 15px 30px;
+    line-height: 1.8;
+}
+
+.slide ol li {
+    margin: 10px 0;
+    font-size: 1.1em;
+}
+
+/* Alert Boxes */
+.highlight {
+    background: #fff3cd;
+    padding: 15px;
+    border-left: 5px solid #ffc107;
+    margin: 20px 0;
+    border-radius: 5px;
+}
+
+.warning {
+    background: #f8d7da;
+    padding: 15px;
+    border-left: 5px solid #dc3545;
+    margin: 20px 0;
+    border-radius: 5px;
+}
+
+.success {
+    background: #d4edda;
+    padding: 15px;
+    border-left: 5px solid #28a745;
+    margin: 20px 0;
+    border-radius: 5px;
+}
+
+/* Navigation */
+.navigation {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px 20px;
+    border-radius: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+/* Hide navigation and slide counter on certificate slide */
+body.certificate-active .navigation {
+    display: none !important;
+}
+
+body.certificate-active .slide-counter {
+    display: none !important;
+}
+
+/* Progress Bar */
+.progress-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.3);
+    z-index: 1000;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #4CAF50, #8BC34A);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+/* Buttons */
+.nav-btn {
+    padding: 12px 24px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+}
+
+.nav-btn:hover {
+    background: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+}
+
+.nav-btn:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Slide Counter */
+.slide-counter {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    z-index: 1000;
+}
+
+/* Title Slide Styles */
+.title-slide {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-slide h1 {
+    font-size: 3.5em;
+    margin-bottom: 30px;
+    color: #2c3e50;
+}
+
+.title-slide .subtitle {
+    font-size: 1.5em;
+    color: #7f8c8d;
+    margin-bottom: 40px;
+}
+
+.logo {
+    width: 150px;
+    height: 150px;
+    background: #e74c3c;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px auto;
+    font-size: 3em;
+    color: white;
+}
+
+/* Content Boxes */
+.step-box {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px 0;
+}
+
+.emergency-contact {
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.emergency-contact h3 {
+    color: #856404;
+    margin-bottom: 15px;
+}
+
+.contact-info {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #495057;
+}
+
+/* Layout Utilities */
+.two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin: 20px 0;
+}
+
+.pathogen-box {
+    background: #f8d7da;
+    border: 2px solid #dc3545;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+}
+
+.pathogen-box h4 {
+    color: #721c24;
+    margin-bottom: 10px;
+}
+
+/* Quiz Styles */
+.question-box {
+    background: #f8f9fa;
+    border: 2px solid #dee2e6;
+    border-radius: 15px;
+    padding: 30px;
+    margin: 30px 0;
+}
+
+.question-box h3 {
+    color: #2c3e50;
+    font-size: 1.4em;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.quiz-options label {
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.1em;
+    display: flex;
+    align-items: center;
+}
+
+.quiz-options label:hover {
+    border-color: #e74c3c;
+    background: #fff5f5;
+}
+
+.quiz-options input[type="radio"] {
+    margin-right: 15px;
+    transform: scale(1.3);
+}
+
+.quiz-options label.selected {
+    border-color: #e74c3c;
+    background: #fff5f5;
+}
+
+/* Animations */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Quiz Slide Layout */
+.quiz-slide {
+    padding-bottom: 120px; /* Extra space for quiz buttons above navigation */
+}
+
+/* Quiz Button Management */
+.slide:not(.active) .quiz-btn {
+    display: none !important;
+}
+
+.slide.active .quiz-btn {
+    display: block !important;
+}
+
+.quiz-btn {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 15px 30px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 20px auto 40px auto; /* Extra bottom margin to clear navigation */
+    display: block;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1002; /* Above navigation */
+}
+
+.quiz-btn:hover {
+    background: #c0392b;
+    transform: translateY(-2px);
+}
+
+.quiz-btn:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Certificate Styles */
+.certificate {
+    background: white;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.certificate-border {
+    border: 8px solid #2c3e50;
+    border-radius: 20px;
+    padding: 40px;
+    width: 90%;
+    max-width: 800px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+.certificate-border::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    border: 2px solid #e74c3c;
+    border-radius: 10px;
+}
+
+/* Footer Information */
+.footer {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    z-index: 100;
+}
+
+.version-info {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: right;
+    z-index: 100;
+}
+
+/* Certificate Content */
+.certificate-header {
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 1;
+}
+
+.certificate-header h1 {
+    color: #2c3e50;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.certificate-subtitle {
+    color: #e74c3c;
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.certificate-body {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.certificate-text {
+    font-size: 1.2em;
+    color: #2c3e50;
+    margin: 15px 0;
+}
+
+.certificate-name {
+    margin: 25px 0;
+}
+
+.name-input {
+    border: none;
+    border-bottom: 3px solid #2c3e50;
+    background: transparent;
+    font-size: 2em;
+    font-weight: bold;
+    color: #e74c3c;
+    text-align: center;
+    padding: 10px;
+    min-width: 400px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 100%;
+    max-width: 500px;
+}
+
+.name-input:focus {
+    outline: none;
+    border-bottom-color: #e74c3c;
+}
+
+.name-input::placeholder {
+    color: #adb5bd;
+    font-style: italic;
+}
+
+.certificate-course {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #2c3e50;
+    margin: 20px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.certificate-details {
+    margin: 30px 0;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.detail-item {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    padding: 15px;
+    min-width: 200px;
+}
+
+.certificate-signatures {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.certificate-seal {
+    text-align: center;
+}
+
+.seal {
+    width: 100px;
+    height: 100px;
+    border: 4px solid #e74c3c;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #e74c3c;
+    font-size: 0.9em;
+    line-height: 1.2;
+    margin: 0 auto;
+}
+
+/* Quiz Results */
+.results-box {
+    background: #f8f9fa;
+    border: 3px solid #dee2e6;
+    border-radius: 15px;
+    padding: 30px;
+    margin: 30px 0;
+    text-align: center;
+}
+
+.pass-result {
+    border-color: #28a745;
+    background: #d4edda;
+}
+
+.fail-result {
+    border-color: #dc3545;
+    background: #f8d7da;
+}
+
+.score-display {
+    font-size: 3em;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.pass-score {
+    color: #28a745;
+}
+
+.fail-score {
+    color: #dc3545;
+}
+
+/* Print Styles */
+@media print {
+    .slide:not(#certificate-slide) {
+        display: none !important;
+    }
+    
+    #certificate-slide {
+        position: static !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    .navigation, .slide-counter {
+        display: none !important;
+    }
+}
+
+/* Mobile Responsive Overrides */
+@media (max-width: 768px) {
+    .slide {
+        width: 95%;
+        height: 90%;
+        margin: 2.5% auto;
+        padding: 20px;
+    }
+    
+    #certificate-slide {
+        height: auto;
+        min-height: 90%;
+        padding-bottom: 250px; /* Extra space for buttons on mobile */
+        overflow-y: auto; /* Allow scrolling on mobile */
+    }
+    
+    .certificate-actions {
+        position: relative; /* Keep relative positioning on mobile too */
+        margin-top: 20px;
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .certificate {
+        margin-bottom: 20px; /* Space between certificate and buttons */
+    }
+    
+    .slide h1 {
+        font-size: 2em;
+    }
+    
+    .slide h2 {
+        font-size: 1.5em;
+    }
+    
+    .two-column {
+        grid-template-columns: 1fr;
+    }
+    
+    .certificate-border {
+        padding: 20px;
+    }
+    
+    .certificate-header h1 {
+        font-size: 2em;
+    }
+    
+    .name-input {
+        min-width: 300px;
+        font-size: 1.5em;
+    }
+    
+    .certificate-details {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .quiz-slide {
+        padding-bottom: 140px; /* Extra space for quiz buttons on mobile */
+    }
+    
+    .quiz-btn {
+        margin: 20px auto 60px auto; /* Even more bottom margin on mobile */
+        padding: 12px 25px;
+        font-size: 1em;
+        z-index: 1002;
+    }
+    
+    .question-box {
+        margin-bottom: 20px; /* Reduce spacing to fit better on mobile */
+    }
+}
