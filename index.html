@@ -8,6 +8,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
+    <!-- Navigation Script -->
+    <script src="navigation.js"></script>
+    
     <!-- Service Worker Registration for Offline Support -->
     <script>
         if ('serviceWorker' in navigator) {
@@ -1320,16 +1323,70 @@
     </div>
 
     <div class="navigation">
-        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
-        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next →</button>
+        <button class="nav-btn" onclick="prevSlide()">← Previous</button>
+        <button class="nav-btn" onclick="nextSlide()">Next →</button>
     </div>
 
     <script>
-        // Declare variables but don't initialize them yet
+        // Global variables
         let currentSlide = 0;
         let slides;
         let visibleSlides;
         let totalSlides;
+        
+        // Navigation functions
+        function prevSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+        
+        function nextSlide() {
+            if (currentSlide < visibleSlides.length - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+        
+        function showSlide(n) {
+            // Make sure slides are initialized
+            if (!slides || !visibleSlides) {
+                slides = document.querySelectorAll('.slide');
+                visibleSlides = Array.from(slides).filter(slide => slide.id !== 'admin-panel');
+                totalSlides = visibleSlides.length;
+            }
+            
+            // Check if trying to access certificate without passing quiz
+            if (n === visibleSlides.length - 1 && !quizPassed) {
+                alert('You must complete and pass the quiz before accessing the certificate.');
+                return;
+            }
+            
+            // Hide all slides except admin panel
+            slides.forEach(slide => {
+                if (slide.id !== 'admin-panel') {
+                    slide.classList.remove('active');
+                }
+            });
+            
+            // Show the target slide
+            currentSlide = n;
+            visibleSlides[currentSlide].classList.add('active');
+            
+            // Update counter (don't count admin panel)
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+            document.getElementById('total-slides').textContent = visibleSlides.length;
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === visibleSlides.length - 1;
+            
+            // Update progress bar
+            const progressPercentage = ((currentSlide + 1) / visibleSlides.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progressPercentage}%`;
+            
+            // Save progress to localStorage
+            localStorage.setItem('bbp_current_slide', currentSlide);
+        }
         
         // Initialize the first slide
         // Function to resume progress
@@ -1344,25 +1401,17 @@
             return 0;
         }
         
+        // Initialize variables at the global level
+        slides = document.querySelectorAll('.slide');
+        visibleSlides = Array.from(slides).filter(slide => slide.id !== 'admin-panel');
+        totalSlides = visibleSlides.length;
+        
+        // Initialize slides on page load
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize slides
             slides = document.querySelectorAll('.slide');
             visibleSlides = Array.from(slides).filter(slide => slide.id !== 'admin-panel');
             totalSlides = visibleSlides.length;
-            
-            // Check for saved progress
-            const resumeSlideIndex = resumeProgress();
-            if (resumeSlideIndex > 0) {
-                // Ask if user wants to resume
-                const resume = confirm('Would you like to resume from where you left off?');
-                if (resume) {
-                    showSlide(resumeSlideIndex);
-                } else {
-                    showSlide(0);
-                }
-            } else {
-                showSlide(0);
-            }
             
             // Add keyboard navigation
             document.addEventListener('keydown', function(e) {
@@ -1373,27 +1422,39 @@
                 
                 // Left arrow or Page Up: Previous slide
                 if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
-                    if (currentSlide > 0) {
-                        changeSlide(-1);
-                    }
+                    prevSlide();
                 }
                 // Right arrow or Page Down: Next slide
                 else if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
-                    if (currentSlide < visibleSlides.length - 1) {
-                        changeSlide(1);
-                    }
+                    nextSlide();
                 }
                 // Home key: First slide
                 else if (e.key === 'Home') {
                     showSlide(0);
                 }
-                // End key: Last slide (if quiz is passed)
+                // End key: Last slide
                 else if (e.key === 'End') {
                     if (quizPassed) {
                         showSlide(visibleSlides.length - 1);
+                    } else {
+                        showSlide(visibleSlides.length - 2); // Go to quiz slide
                     }
                 }
             });
+            
+            // Check for saved progress
+            const resumeSlideIndex = resumeProgress();
+            if (resumeSlideIndex > 0) {
+                // Ask if user wants to resume
+                const resumeConfirm = confirm("Would you like to resume from where you left off?");
+                if (resumeConfirm) {
+                    showSlide(resumeSlideIndex);
+                } else {
+                    showSlide(0);
+                }
+            } else {
+                showSlide(0);
+            }
         });
         
         // Quiz variables
@@ -1443,14 +1504,7 @@
             localStorage.setItem('bbp_current_slide', currentSlide);
         }
 
-        function changeSlide(direction) {
-            const visibleSlides = Array.from(slides).filter(slide => slide.id !== 'admin-panel');
-            let newSlide = currentSlide + direction;
-            
-            if (newSlide >= 0 && newSlide < visibleSlides.length) {
-                showSlide(newSlide);
-            }
-        }
+        // changeSlide function removed - using direct event listeners instead
 
         function startQuiz() {
             quizStarted = true;
