@@ -112,6 +112,36 @@
             transition: opacity 0.3s ease-in-out;
             overflow-y: auto;
         }
+        
+        /* Hide navigation completely on certificate slide */
+        #certificate-slide .navigation {
+            display: none !important;
+        }
+        
+        /* Also hide slide counter on certificate for clean look */
+        body:has(#certificate-slide.active) .slide-counter {
+            display: none;
+        }
+        
+        /* Special handling for certificate slide to ensure buttons are visible */
+        #certificate-slide {
+            height: auto;
+            min-height: 85%;
+            padding-bottom: 200px; /* Extra space for buttons below certificate */
+            position: relative;
+            overflow-y: auto; /* Allow scrolling if needed */
+        }
+        
+        .certificate-actions {
+            position: relative; /* Changed from absolute to relative */
+            margin-top: 30px; /* Space between certificate and buttons */
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
 
         .slide.active {
             opacity: 1;
@@ -196,6 +226,7 @@
             padding: 10px 20px;
             border-radius: 30px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
         }
         
         /* Progress Bar Styles */
@@ -383,6 +414,26 @@
             background: #fff5f5;
         }
 
+        /* Remove the incorrect CSS rule that was targeting wrong slide */
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .quiz-slide {
+            padding-bottom: 120px; /* Extra space for quiz buttons above navigation */
+        }
+        
+        /* Ensure quiz buttons only show on active quiz slides */
+        .slide:not(.active) .quiz-btn {
+            display: none !important;
+        }
+        
+        .slide.active .quiz-btn {
+            display: block !important;
+        }
+        
         .quiz-btn {
             background: #e74c3c;
             color: white;
@@ -392,9 +443,11 @@
             font-size: 1.1em;
             font-weight: bold;
             cursor: pointer;
-            margin: 20px auto;
+            margin: 20px auto 40px auto; /* Extra bottom margin to clear navigation */
             display: block;
             transition: all 0.3s ease;
+            position: relative;
+            z-index: 1002; /* Above navigation */
         }
 
         .quiz-btn:hover {
@@ -628,6 +681,25 @@
                 padding: 20px;
             }
             
+            #certificate-slide {
+                height: auto;
+                min-height: 90%;
+                padding-bottom: 250px; /* Extra space for buttons on mobile */
+                overflow-y: auto; /* Allow scrolling on mobile */
+            }
+            
+            .certificate-actions {
+                position: relative; /* Keep relative positioning on mobile too */
+                margin-top: 20px;
+                width: 95%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .certificate {
+                margin-bottom: 20px; /* Space between certificate and buttons */
+            }
+            
             .slide h1 {
                 font-size: 2em;
             }
@@ -656,6 +728,21 @@
             .certificate-details {
                 flex-direction: column;
                 align-items: center;
+            }
+            
+            .quiz-slide {
+                padding-bottom: 140px; /* Extra space for quiz buttons on mobile */
+            }
+            
+            .quiz-btn {
+                margin: 20px auto 60px auto; /* Even more bottom margin on mobile */
+                padding: 12px 25px;
+                font-size: 1em;
+                z-index: 1002;
+            }
+            
+            .question-box {
+                margin-bottom: 20px; /* Reduce spacing to fit better on mobile */
             }
         }
     </style>
@@ -1233,8 +1320,13 @@
         <!-- Quiz Results Slide -->
         <div class="slide" id="quiz-results">
             <h1>Quiz Results</h1>
-            <div id="results-content">
-                <!-- Results will be populated by JavaScript -->
+            <div id="results-content" style="min-height: 300px; padding: 20px;">
+                <div style="text-align: center; color: #666; font-size: 1.2em;">
+                    <p>Processing quiz results...</p>
+                    <div style="margin: 20px 0;">
+                        <div style="display: inline-block; width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #e74c3c; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -1262,16 +1354,16 @@
                         
                         <div class="certificate-details">
                             <div class="detail-item">
-                                <strong>Date of Completion:</strong> <span id="completion-date">Loading...</span>
+                                <strong>Date of Completion:</strong> <span id="completion-date">Generating...</span>
                             </div>
                             <div class="detail-item">
-                                <strong>Quiz Score:</strong> <span id="final-score">Loading...</span>
+                                <strong>Quiz Score:</strong> <span id="final-score">Generating...</span>
                             </div>
                             <div class="detail-item">
-                                <strong>Completion ID:</strong> <span id="completion-id">Not Generated</span>
+                                <strong>Completion ID:</strong> <span id="completion-id">Generating...</span>
                             </div>
                             <div class="detail-item">
-                                <strong>Next Training Due:</strong> <span id="next-training-date">Loading...</span>
+                                <strong>Next Training Due:</strong> <span id="next-training-date">Generating...</span>
                             </div>
                         </div>
                         
@@ -1283,23 +1375,31 @@
                     </div>
                 </div>
             </div>
-            <button class="nav-btn" id="print-cert-btn" style="margin-top: 20px;">Print Certificate</button>
-            <button class="nav-btn" id="save-pdf-btn" style="margin-top: 20px; margin-left: 15px; background: #17a2b8;">Save as PDF</button>
-            <button class="nav-btn" id="email-cert-btn" style="margin-top: 20px; margin-left: 15px; background: #28a745;">Email to Instructor</button>
+            
+            <!-- Certificate Action Buttons - Fixed positioning -->
+            <div class="certificate-actions">
+                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; background: rgba(255,255,255,0.95); padding: 15px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    <button class="nav-btn" id="print-cert-btn">Print Certificate</button>
+                    <button class="nav-btn" id="save-pdf-btn" style="background: #17a2b8;">Save as PDF</button>
+                    <button class="nav-btn" id="email-cert-btn" style="background: #28a745;">Email to Instructor</button>
+                </div>
+            </div>
             
             <!-- Email Submission Form (hidden by default) -->
-            <div id="email-form" style="display: none; margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px; border: 2px solid #dee2e6;">
-                <h3 style="color: #2c3e50; margin-bottom: 20px;">Submit Certificate to Instructor</h3>
+            <div id="email-form" style="display: none; position: absolute; bottom: 180px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 600px; margin: 20px auto; padding: 20px; background: #f8f9fa; border-radius: 10px; border: 2px solid #dee2e6; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <h3 style="color: #2c3e50; margin-bottom: 20px; text-align: center;">Submit Certificate to Instructor</h3>
                 <div style="margin-bottom: 15px;">
                     <label style="display: block; margin-bottom: 5px; font-weight: bold;">Student Email:</label>
-                    <input type="email" id="student-email" placeholder="your.email@example.com" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                    <input type="email" id="student-email" placeholder="your.email@example.com" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
                 </div>
                 <div style="margin-bottom: 15px;">
                     <label style="display: block; margin-bottom: 5px; font-weight: bold;">Additional Comments (Optional):</label>
-                    <textarea id="student-comments" placeholder="Any questions or comments..." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; height: 80px; resize: vertical;"></textarea>
+                    <textarea id="student-comments" placeholder="Any questions or comments..." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; height: 80px; resize: vertical; box-sizing: border-box;"></textarea>
                 </div>
-                <button class="nav-btn" id="submit-cert-btn" style="background: #28a745;">Submit Certificate</button>
-                <button class="nav-btn" id="cancel-email-btn" style="background: #6c757d; margin-left: 10px;">Cancel</button>
+                <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+                    <button class="nav-btn" id="submit-cert-btn" style="background: #28a745;">Submit Certificate</button>
+                    <button class="nav-btn" id="cancel-email-btn" style="background: #6c757d;">Cancel</button>
+                </div>
             </div>
         </div>
     </div>
@@ -1337,6 +1437,7 @@
             visibleSlides = Array.from(slides);
             totalSlides = visibleSlides.length;
             
+            console.log('Total slides found:', totalSlides);
             document.getElementById('total-slides').textContent = totalSlides;
         }
         
@@ -1345,27 +1446,51 @@
             document.getElementById('prev-btn').addEventListener('click', prevSlide);
             document.getElementById('next-btn').addEventListener('click', nextSlide);
             
-            // Quiz buttons
-            document.getElementById('start-quiz-btn').addEventListener('click', startQuiz);
+            // Quiz buttons - add safety checks
+            const startQuizBtn = document.getElementById('start-quiz-btn');
+            if (startQuizBtn) {
+                startQuizBtn.addEventListener('click', startQuiz);
+            }
             
-            // Quiz question buttons
-            document.getElementById('next-q1-btn').addEventListener('click', () => nextQuestion(1));
-            document.getElementById('next-q2-btn').addEventListener('click', () => nextQuestion(2));
-            document.getElementById('next-q3-btn').addEventListener('click', () => nextQuestion(3));
-            document.getElementById('next-q4-btn').addEventListener('click', () => nextQuestion(4));
-            document.getElementById('next-q5-btn').addEventListener('click', () => nextQuestion(5));
-            document.getElementById('next-q6-btn').addEventListener('click', () => nextQuestion(6));
-            document.getElementById('next-q7-btn').addEventListener('click', () => nextQuestion(7));
-            document.getElementById('next-q8-btn').addEventListener('click', () => nextQuestion(8));
-            document.getElementById('next-q9-btn').addEventListener('click', () => nextQuestion(9));
-            document.getElementById('submit-quiz-btn').addEventListener('click', submitQuiz);
+            // Quiz question buttons - check if they exist first
+            const quizButtons = [
+                { id: 'next-q1-btn', fn: () => nextQuestion(1) },
+                { id: 'next-q2-btn', fn: () => nextQuestion(2) },
+                { id: 'next-q3-btn', fn: () => nextQuestion(3) },
+                { id: 'next-q4-btn', fn: () => nextQuestion(4) },
+                { id: 'next-q5-btn', fn: () => nextQuestion(5) },
+                { id: 'next-q6-btn', fn: () => nextQuestion(6) },
+                { id: 'next-q7-btn', fn: () => nextQuestion(7) },
+                { id: 'next-q8-btn', fn: () => nextQuestion(8) },
+                { id: 'next-q9-btn', fn: () => nextQuestion(9) },
+                { id: 'submit-quiz-btn', fn: submitQuiz }
+            ];
+            
+            quizButtons.forEach(btn => {
+                const element = document.getElementById(btn.id);
+                if (element) {
+                    element.addEventListener('click', btn.fn);
+                    console.log(`Added listener to ${btn.id}`);
+                } else {
+                    console.warn(`Button ${btn.id} not found`);
+                }
+            });
             
             // Certificate buttons
-            document.getElementById('print-cert-btn').addEventListener('click', printCertificate);
-            document.getElementById('save-pdf-btn').addEventListener('click', savePDF);
-            document.getElementById('email-cert-btn').addEventListener('click', emailCertificate);
-            document.getElementById('submit-cert-btn').addEventListener('click', submitCertificate);
-            document.getElementById('cancel-email-btn').addEventListener('click', cancelEmail);
+            const certButtons = [
+                { id: 'print-cert-btn', fn: printCertificate },
+                { id: 'save-pdf-btn', fn: savePDF },
+                { id: 'email-cert-btn', fn: emailCertificate },
+                { id: 'submit-cert-btn', fn: submitCertificate },
+                { id: 'cancel-email-btn', fn: cancelEmail }
+            ];
+            
+            certButtons.forEach(btn => {
+                const element = document.getElementById(btn.id);
+                if (element) {
+                    element.addEventListener('click', btn.fn);
+                }
+            });
             
             // Keyboard navigation
             document.addEventListener('keydown', function(e) {
@@ -1395,14 +1520,33 @@
                 return;
             }
             
-            // Hide all slides
-            visibleSlides.forEach(slide => {
+            // Auto-collect quiz answers when leaving a quiz slide
+            if (currentSlide >= 20 && currentSlide <= 30) { // If leaving a quiz slide
+                collectCurrentQuizAnswer();
+            }
+            
+            // Hide all slides and their quiz buttons
+            visibleSlides.forEach((slide, index) => {
                 slide.classList.remove('active');
+                // Hide quiz buttons on inactive slides
+                const quizBtns = slide.querySelectorAll('.quiz-btn');
+                quizBtns.forEach(btn => {
+                    btn.style.display = 'none';
+                });
             });
             
             // Show the target slide
             currentSlide = n;
             visibleSlides[currentSlide].classList.add('active');
+            
+            // Show quiz buttons only on the active slide if it's a quiz slide
+            const activeSlide = visibleSlides[currentSlide];
+            if (activeSlide.classList.contains('quiz-slide')) {
+                const quizBtns = activeSlide.querySelectorAll('.quiz-btn');
+                quizBtns.forEach(btn => {
+                    btn.style.display = 'block';
+                });
+            }
             
             // Update counter
             document.getElementById('current-slide').textContent = currentSlide + 1;
@@ -1410,13 +1554,63 @@
             // Update navigation buttons
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
+            const navigation = document.querySelector('.navigation');
+            
+            // Always reset navigation visibility and state first
+            prevBtn.style.display = 'block';
+            prevBtn.style.visibility = 'visible';
+            nextBtn.style.display = 'block';
+            nextBtn.style.visibility = 'visible';
+            navigation.style.display = 'flex';
             
             prevBtn.disabled = currentSlide === 0;
             nextBtn.disabled = currentSlide === visibleSlides.length - 1;
             
+            // Special handling: Hide navigation on certificate slide
+            if (activeSlide.id === 'certificate-slide') {
+                console.log('On certificate slide - hiding navigation');
+                navigation.style.display = 'none';
+            }
+            
+            // Check if this is the last quiz question slide
+            const slideContent = activeSlide.innerHTML;
+            const isLastQuizQuestion = slideContent.includes('Question 10 of 10') && slideContent.includes('Submit Quiz');
+            
+            if (isLastQuizQuestion) {
+                console.log('Found last quiz question - hiding next button');
+                // Hide the next button completely on the last quiz question
+                nextBtn.style.display = 'none';
+                nextBtn.style.visibility = 'hidden';
+            }
+            
             // Update progress bar
             const progressPercentage = ((currentSlide + 1) / visibleSlides.length) * 100;
             document.getElementById('progress-bar').style.width = `${progressPercentage}%`;
+        }
+        
+        // New function to automatically collect quiz answers
+        function collectCurrentQuizAnswer() {
+            const currentSlideEl = visibleSlides[currentSlide];
+            const slideContent = currentSlideEl.innerHTML;
+            
+            // Determine which question this is
+            let questionNumber = null;
+            for (let i = 1; i <= 10; i++) {
+                if (slideContent.includes(`Question ${i} of 10`)) {
+                    questionNumber = i;
+                    break;
+                }
+            }
+            
+            if (questionNumber) {
+                const selectedAnswer = currentSlideEl.querySelector(`input[name="q${questionNumber}"]:checked`);
+                if (selectedAnswer) {
+                    quizAnswers[`q${questionNumber}`] = selectedAnswer.value;
+                    console.log(`Auto-collected answer for Q${questionNumber}: ${selectedAnswer.value}`);
+                } else {
+                    console.log(`No answer selected for Q${questionNumber}`);
+                }
+            }
         }
         
         function prevSlide() {
@@ -1426,6 +1620,53 @@
         }
         
         function nextSlide() {
+            // Check if this is a quiz question by content
+            const currentSlideEl = visibleSlides[currentSlide];
+            const slideContent = currentSlideEl.innerHTML;
+            
+            // If we're on a quiz question, require an answer before proceeding
+            if (slideContent.includes('quiz-options') && slideContent.includes('Question') && slideContent.includes('of 10')) {
+                // Determine which question this is
+                let questionNumber = null;
+                for (let i = 1; i <= 10; i++) {
+                    if (slideContent.includes(`Question ${i} of 10`)) {
+                        questionNumber = i;
+                        break;
+                    }
+                }
+                
+                if (questionNumber) {
+                    const selectedAnswer = currentSlideEl.querySelector(`input[name="q${questionNumber}"]:checked`);
+                    
+                    if (!selectedAnswer) {
+                        // Show alert and highlight the question
+                        alert(`⚠️ Please select an answer for Question ${questionNumber} before continuing to the next slide.`);
+                        
+                        // Add visual highlight
+                        const questionBox = currentSlideEl.querySelector('.question-box');
+                        if (questionBox) {
+                            questionBox.style.border = '3px solid #dc3545';
+                            questionBox.style.backgroundColor = '#fff5f5';
+                            
+                            // Remove highlight after 3 seconds
+                            setTimeout(() => {
+                                questionBox.style.border = '2px solid #dee2e6';
+                                questionBox.style.backgroundColor = '#f8f9fa';
+                            }, 3000);
+                        }
+                        
+                        return; // Don't proceed to next slide
+                    } else {
+                        // Store the answer if not already stored
+                        if (!quizAnswers[`q${questionNumber}`]) {
+                            quizAnswers[`q${questionNumber}`] = selectedAnswer.value;
+                            console.log(`Stored answer for Q${questionNumber}: ${selectedAnswer.value}`);
+                        }
+                    }
+                }
+            }
+            
+            // Original nextSlide logic
             if (currentSlide < visibleSlides.length - 1) {
                 showSlide(currentSlide + 1);
             }
@@ -1441,11 +1682,28 @@
             const selectedAnswer = document.querySelector(`input[name="q${questionNum}"]:checked`);
             
             if (!selectedAnswer) {
-                alert('Please select an answer before continuing.');
-                return;
+                // Show a helpful message with visual feedback
+                alert(`⚠️ Please select an answer for Question ${questionNum} before continuing.`);
+                
+                // Add visual highlight to the question options to draw attention
+                const questionBox = document.querySelector('.question-box');
+                if (questionBox) {
+                    questionBox.style.border = '3px solid #dc3545';
+                    questionBox.style.backgroundColor = '#fff5f5';
+                    
+                    // Remove highlight after 3 seconds
+                    setTimeout(() => {
+                        questionBox.style.border = '2px solid #dee2e6';
+                        questionBox.style.backgroundColor = '#f8f9fa';
+                    }, 3000);
+                }
+                
+                return; // Don't proceed to next question
             }
             
+            // Store the answer
             quizAnswers[`q${questionNum}`] = selectedAnswer.value;
+            console.log(`Stored answer for Q${questionNum}: ${selectedAnswer.value}`);
             currentQuestionIndex++;
             
             if (currentQuestionIndex < 10) {
@@ -1454,61 +1712,172 @@
         }
         
         function submitQuiz() {
+            console.log('submitQuiz called');
+            
+            // Check if current question (Q10) is answered
             const selectedAnswer = document.querySelector('input[name="q10"]:checked');
             if (!selectedAnswer) {
-                alert('Please select an answer before submitting.');
+                alert('⚠️ Please select an answer for Question 10 before submitting the quiz.');
+                
+                // Add visual highlight to draw attention
+                const questionBox = document.querySelector('.question-box');
+                if (questionBox) {
+                    questionBox.style.border = '3px solid #dc3545';
+                    questionBox.style.backgroundColor = '#fff5f5';
+                    
+                    setTimeout(() => {
+                        questionBox.style.border = '2px solid #dee2e6';
+                        questionBox.style.backgroundColor = '#f8f9fa';
+                    }, 3000);
+                }
                 return;
             }
-            quizAnswers.q10 = selectedAnswer.value;
             
+            // Store the final answer
+            quizAnswers.q10 = selectedAnswer.value;
+            console.log(`Stored answer for Q10: ${selectedAnswer.value}`);
+            
+            // Add visual feedback
+            const submitBtn = document.getElementById('submit-quiz-btn');
+            if (submitBtn) {
+                submitBtn.textContent = 'Processing results...';
+                submitBtn.disabled = true;
+            }
+            
+            console.log('Final quiz answers:', quizAnswers);
+            
+            // Calculate score
             let correctCount = 0;
             for (let question in correctAnswers) {
-                if (quizAnswers[question] === correctAnswers[question]) {
+                const userAnswer = quizAnswers[question];
+                const correctAnswer = correctAnswers[question];
+                const isCorrect = userAnswer === correctAnswer;
+                
+                if (isCorrect) {
                     correctCount++;
                 }
+                console.log(`Question ${question}: answered "${userAnswer}", correct is "${correctAnswer}" - ${isCorrect ? 'CORRECT' : 'WRONG'}`);
             }
             
             const scorePercentage = (correctCount / 10) * 100;
             const passed = scorePercentage >= 80;
+            
+            console.log(`Final Score: ${correctCount}/10 (${scorePercentage}%) - ${passed ? 'PASSED' : 'FAILED'}`);
+            
             showQuizResults(scorePercentage, correctCount, passed);
         }
         
         function showQuizResults(score, correct, passed) {
-            const resultsContent = document.getElementById('results-content');
+            console.log('showQuizResults called with:', { score, correct, passed });
             
-            if (passed) {
-                quizPassed = true;
-                resultsContent.innerHTML = `
-                    <div class="results-box pass-result">
-                        <h2>🎉 Congratulations!</h2>
-                        <div class="score-display pass-score">${score}%</div>
-                        <p><strong>You scored ${correct} out of 10 questions correct.</strong></p>
-                        <p>You have successfully passed the Bloodborne Pathogen Training!</p>
-                        <button class="nav-btn" id="generate-cert-btn">Generate Certificate</button>
-                    </div>
-                `;
-                
-                // Add event listener to the generate certificate button
-                document.getElementById('generate-cert-btn').addEventListener('click', () => generateCertificate(score));
-            } else {
-                quizPassed = false;
-                resultsContent.innerHTML = `
-                    <div class="results-box fail-result">
-                        <h2>Review Required</h2>
-                        <div class="score-display fail-score">${score}%</div>
-                        <p><strong>You scored ${correct} out of 10 questions correct.</strong></p>
-                        <p>You need 80% or higher to pass. Please review the training material and retake the quiz.</p>
-                        <button class="nav-btn" id="retake-quiz-btn">Retake Quiz</button>
-                        <button class="nav-btn" id="review-training-btn" style="background: #6c757d;">Review Training</button>
-                    </div>
-                `;
-                
-                // Add event listeners to the buttons
-                document.getElementById('retake-quiz-btn').addEventListener('click', retakeQuiz);
-                document.getElementById('review-training-btn').addEventListener('click', () => showSlide(0));
+            // Hide all quiz buttons first to prevent them from showing on other slides
+            document.querySelectorAll('.quiz-btn').forEach(btn => {
+                btn.style.display = 'none';
+            });
+            
+            console.log('About to navigate to results slide...');
+            
+            // Force navigation to results slide (slide 31)
+            currentSlide = 31;
+            
+            // Hide all slides
+            visibleSlides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            // Show the results slide
+            visibleSlides[31].classList.add('active');
+            
+            // Update counter and navigation
+            document.getElementById('current-slide').textContent = 32; // Display as 32 since it's 1-indexed
+            
+            // Update navigation buttons - show them on results slide
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const navigation = document.querySelector('.navigation');
+            
+            prevBtn.disabled = false;
+            nextBtn.disabled = false;
+            prevBtn.style.display = 'block';
+            nextBtn.style.display = 'block';
+            navigation.style.display = 'flex'; // Show navigation on results slide
+            
+            // Update progress bar
+            const progressPercentage = (32 / visibleSlides.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progressPercentage}%`;
+            
+            console.log('Forced navigation to results slide completed');
+            
+            const resultsContent = document.getElementById('results-content');
+            console.log('Results content element:', resultsContent);
+            
+            if (!resultsContent) {
+                console.error('Results content element not found!');
+                return;
             }
             
-            showSlide(31); // Show results slide
+            // Small delay to ensure slide is visible before updating content
+            setTimeout(() => {
+                console.log('Timeout executed, updating results content...');
+                
+                if (passed) {
+                    console.log('User passed - creating success content');
+                    quizPassed = true;
+                    resultsContent.innerHTML = `
+                        <div class="results-box pass-result">
+                            <h2>🎉 Congratulations!</h2>
+                            <div class="score-display pass-score">${score}%</div>
+                            <p><strong>You scored ${correct} out of 10 questions correct.</strong></p>
+                            <p>You have successfully passed the Bloodborne Pathogen Training!</p>
+                            <button class="nav-btn results-btn" id="generate-cert-btn" style="margin: 20px auto 60px auto; display: block; z-index: 1002;">Generate Certificate</button>
+                        </div>
+                    `;
+                    
+                    console.log('Pass content set, adding event listener...');
+                    
+                    // Add event listener to the generate certificate button
+                    const generateBtn = document.getElementById('generate-cert-btn');
+                    if (generateBtn) {
+                        generateBtn.addEventListener('click', () => {
+                            console.log('Generate certificate clicked');
+                            generateCertificate(score);
+                        });
+                        console.log('Generate certificate button listener added');
+                    } else {
+                        console.error('Generate certificate button not found after creating it!');
+                    }
+                } else {
+                    console.log('User failed - creating fail content');
+                    quizPassed = false;
+                    resultsContent.innerHTML = `
+                        <div class="results-box fail-result">
+                            <h2>Review Required</h2>
+                            <div class="score-display fail-score">${score}%</div>
+                            <p><strong>You scored ${correct} out of 10 questions correct.</strong></p>
+                            <p>You need 80% or higher to pass. Please review the training material and retake the quiz.</p>
+                            <button class="nav-btn results-btn" id="retake-quiz-btn" style="margin: 20px auto 60px auto; display: block; z-index: 1002;">Retake Quiz</button>
+                            <button class="nav-btn results-btn" id="review-training-btn" style="background: #6c757d; margin: 10px auto 60px auto; display: block; z-index: 1002;">Review Training</button>
+                        </div>
+                    `;
+                    
+                    console.log('Fail content set, adding event listeners...');
+                    
+                    // Add event listeners to the buttons
+                    const retakeBtn = document.getElementById('retake-quiz-btn');
+                    const reviewBtn = document.getElementById('review-training-btn');
+                    
+                    if (retakeBtn) {
+                        retakeBtn.addEventListener('click', retakeQuiz);
+                        console.log('Retake quiz button listener added');
+                    }
+                    if (reviewBtn) {
+                        reviewBtn.addEventListener('click', () => showSlide(0));
+                        console.log('Review training button listener added');
+                    }
+                }
+                
+                console.log('Quiz results content updated successfully');
+            }, 100);
         }
         
         function retakeQuiz() {
@@ -1521,12 +1890,21 @@
                 radio.checked = false;
             });
             
+            // Reset navigation visibility
+            const nextBtn = document.getElementById('next-btn');
+            if (nextBtn) {
+                nextBtn.style.display = 'block';
+            }
+            
             document.getElementById('final-score').textContent = 'Quiz Not Completed';
             startQuiz();
         }
         
         function generateCertificate(score) {
-            completionId = 'BBP-' + Date.now().toString(36) + '-' + Math.random().toString(36).substr(2, 5);
+            // Generate a more robust completion ID
+            const timestamp = Date.now();
+            const randomPart = Math.random().toString(36).substr(2, 9);
+            completionId = `BBP-${timestamp.toString(36).toUpperCase()}-${randomPart.toUpperCase()}`;
             
             const today = new Date();
             const completionDate = today.toLocaleDateString('en-US', {
@@ -1539,14 +1917,81 @@
                 year: 'numeric', month: 'long', day: 'numeric'
             });
             
-            document.getElementById('completion-date').textContent = completionDate;
-            document.getElementById('final-score').textContent = `${score}%`;
-            document.getElementById('completion-id').textContent = completionId;
-            document.getElementById('next-training-date').textContent = nextTrainingDate;
+            // Force navigation to certificate slide (slide 32) without using showSlide
+            currentSlide = 32;
+            
+            // Hide all slides
+            visibleSlides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            // Show the certificate slide
+            visibleSlides[32].classList.add('active');
+            
+            // Force hide navigation with multiple methods to ensure it stays hidden
+            const navigation = document.querySelector('.navigation');
+            const slideCounter = document.querySelector('.slide-counter');
+            
+            if (navigation) {
+                navigation.style.display = 'none';
+                navigation.style.visibility = 'hidden';
+                navigation.classList.add('certificate-hidden');
+                console.log('Navigation forcibly hidden on certificate slide');
+            }
+            
+            if (slideCounter) {
+                slideCounter.style.display = 'none';
+                console.log('Slide counter hidden on certificate slide');
+            }
+            
+            // Update progress bar to 100%
+            const progressBar = document.getElementById('progress-bar');
+            if (progressBar) {
+                progressBar.style.width = '100%';
+            }
+            
+            setTimeout(() => {
+                // Update certificate fields
+                const completionDateEl = document.getElementById('completion-date');
+                const finalScoreEl = document.getElementById('final-score');
+                const completionIdEl = document.getElementById('completion-id');
+                const nextTrainingDateEl = document.getElementById('next-training-date');
+                
+                if (completionDateEl) {
+                    completionDateEl.textContent = completionDate;
+                    console.log('Set completion date:', completionDate);
+                }
+                if (finalScoreEl) {
+                    finalScoreEl.textContent = `${score}%`;
+                    console.log('Set final score:', `${score}%`);
+                }
+                if (completionIdEl) {
+                    completionIdEl.textContent = completionId;
+                    console.log('Set completion ID:', completionId);
+                }
+                if (nextTrainingDateEl) {
+                    nextTrainingDateEl.textContent = nextTrainingDate;
+                    console.log('Set next training date:', nextTrainingDate);
+                }
+                
+                // Focus on name input
+                const nameInput = document.getElementById('employee-name');
+                if (nameInput) {
+                    nameInput.focus();
+                }
+                
+                // Double-check navigation is still hidden
+                if (navigation) {
+                    navigation.style.display = 'none';
+                    navigation.style.visibility = 'hidden';
+                }
+            }, 500);
             
             const completionData = {
-                id: completionId, completionDate: completionDate,
-                nextTrainingDate: nextTrainingDate, score: score,
+                id: completionId, 
+                completionDate: completionDate,
+                nextTrainingDate: nextTrainingDate, 
+                score: score,
                 timestamp: new Date().toISOString()
             };
             
@@ -1557,15 +2002,6 @@
             } catch (e) {
                 console.log('Local storage not available');
             }
-            
-            showSlide(32); // Show certificate slide
-            
-            setTimeout(() => {
-                const nameInput = document.getElementById('employee-name');
-                if (nameInput) {
-                    nameInput.focus();
-                }
-            }, 100);
         }
         
         function printCertificate() {
