@@ -127,6 +127,14 @@ function showSlide(n) {
         return;
     }
     
+    // If navigating to certificate slide directly, ensure certificate is generated
+    if (n === visibleSlides.length - 1 && quizPassed) {
+        // Get the score from the results page if available
+        const scoreDisplay = document.querySelector('.score-display');
+        const score = scoreDisplay ? parseInt(scoreDisplay.textContent) : 100;
+        generateCertificate(score);
+    }
+    
     // Auto-collect quiz answers when leaving a quiz slide
     if (currentSlide >= 20 && currentSlide <= 30) {
         collectCurrentQuizAnswer();
@@ -172,9 +180,12 @@ function showSlide(n) {
     prevBtn.disabled = currentSlide === 0;
     nextBtn.disabled = currentSlide === visibleSlides.length - 1;
     
-    // Hide navigation on certificate slide using body class
+    // Hide navigation on certificate slide
     if (activeSlide.id === 'certificate-slide') {
-        console.log('On certificate slide - adding certificate-active class');
+        console.log('On certificate slide - hiding navigation');
+        navigation.style.display = 'none';
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
         document.body.classList.add('certificate-active');
     } else {
         document.body.classList.remove('certificate-active');
